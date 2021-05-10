@@ -18,10 +18,8 @@ public class connectionTest {
 				v.addElement(new Integer(rset.getInt(1))) ;
 			      }
 			Iterator iter = v.iterator();
-			int i = 0;
 			while(iter.hasNext()){
 			    System.out.println("table id = "+iter.next());
-			    i++;
 			}
 
 		} catch (SQLException e) {
