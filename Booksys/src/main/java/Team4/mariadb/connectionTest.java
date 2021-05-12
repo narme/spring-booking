@@ -8,24 +8,17 @@ import java.util.Vector;
 
 public class connectionTest {
 	public void viewtest() {
-		Vector v = new Vector();
-		try {
-			System.out.println("show list of `Table`");
-			Statement stmt = Database.getInstance().getConnection().createStatement();
-			ResultSet rset = stmt.executeQuery("SELECT * FROM `Table`") ;
-		
-			while (rset.next()) {
-				v.addElement(new Integer(rset.getInt(1))) ;
-			      }
-			Iterator iter = v.iterator();
-			while(iter.hasNext()){
-			    System.out.println("table id = "+iter.next());
+			System.out.println("오라클 공용 mariadb 연결 테스트...");
+			try {
+				Statement stmt = Database.getInstance().getConnection().createStatement();
+				System.out.println("오라클 공용 mariadb 연결 성공");
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+			
 		}
 		
-	}
-
 }
+
+
