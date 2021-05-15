@@ -3,10 +3,79 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>main</title>
-</head>
-<body style="text-align: center">
+    <style>
+/*초기화 */
+* {
+	margin: 0;
+	padding: 0;
+}
 
+#container {
+	/*색, 크기*/
+	width: 500px;
+	height: 250px;
+	background: gray;
+	padding : 10px;
+	/*위치*/
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -250px;
+	margin-top: -125px;
+}
+
+#loginContainer {
+	/*색, 크기*/
+	width: 400px;
+	height: 90px;
+	background: white;
+	padding : 10px;
+	/*위치*/
+	position: absolute;
+	left: 50%;
+	top: 60%;
+	margin-left: -200px;
+	margin-top: -50px;
+}
+#login_Container {
+	/*색, 크기*/
+	width: 200px;
+	height: 100px;
+	background: white;
+	/*위치*/
+	position: absolute;
+	left: 50%;
+	top: 75%;
+	margin-left: -200px;
+	margin-top: -50px;
+}
+
+.font_center {
+	text-align: center;
+}
+.font_Right {
+	text-align: right;
+}
+</style>
+</head>
+<div id="container">
+		<h1 class="font_center">로그인</h1>
+		
+		<div id="loginContainer">
+			<p  class="font_center">
+				    ID: <input type="text" />
+			</p>
+			<p  class="font_center">
+				password: <input type="text" />
+			</p>
+			<button class="center" >로그인</button>
+
+		</div>
 <input type="button" onclick="location.href='/join';" value="회원가입"></body>
+	</div>
+
+
+
 </body>
 </html>
 
