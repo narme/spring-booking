@@ -21,32 +21,32 @@ public class CustomerVO {
     private int noshow;
     
     
-    public void setVal1(String val1) {
-        this.id = val1;
+    public void setVal_id(String val) {
+        this.id = val;
     }
 
-    public void setVal2(String val2) {
-        this.name = val2;
+    public void setVal_name(String val) {
+        this.name = val;
     }
     
-    public void setVal3(String val3) {
-        this.password = val3;
+    public void setVal_password(String val) {
+        this.password = val;
     }
     
-    public void setVal4(String val4) {
-        this.phonenumber = val4;
+    public void setVal_phonenumber(String val) {
+        this.phonenumber = val;
     }
     
-    public void setVal5(int val5) {
-        this.oid = val5;
+    public void setVal_oid(int val) {
+        this.oid = val;
     }
     
-    public void setVal6(int val6) {
-        this.level = val6;
+    public void setVal_level(int val) {
+        this.level = val;
     }
     
-    public void setVal7(int val7) {
-        this.noshow = val7;
+    public void setVal_noshow(int val) {
+        this.noshow = val;
     }
     
     public String getVal_id() {
