@@ -1,0 +1,28 @@
+package Team4.Booksys.VO;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name="TABLE")
+public class TableVO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int oid;
+	private int number;
+	
+	public void setVal_oid(int val) {
+	    this.oid = val;
+	}
+	public void setVal_rid(int val) {
+        this.number = val;
+	}
+	public int getVal_oid() {
+	    return this.oid;
+	}
+	public int getVal_number() {
+	    return this.number;
+	}
+	
+}

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 
 
-@Entity(name="Customer")
+@Entity(name="USER")
 public class CustomerVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,8 @@ public class CustomerVO {
     private String name;
     private String password;
     private String phonenumber;
+    private int level;
+    private int noshow;
     
     
     public void setVal1(String val1) {
@@ -39,6 +41,14 @@ public class CustomerVO {
         this.oid = val5;
     }
     
+    public void setVal6(int val6) {
+        this.level = val6;
+    }
+    
+    public void setVal7(int val7) {
+        this.noshow = val7;
+    }
+    
     public String getVal_id() {
         return this.id;
     }
@@ -54,7 +64,12 @@ public class CustomerVO {
     public int getVal_oid() {
         return this.oid;
     }
-    
+    public int getVal_level() {
+        return this.level;
+    }
+    public int getVal_noshow() {
+        return this.noshow;
+    }
 }
 
 
