@@ -23,14 +23,14 @@ public class UserController {
     UserRepository userRepository;
     @RequestMapping(value = "/joinUs.do",method = RequestMethod.POST)
     public String joinUs(HttpServletRequest req,CustomerVO vo) {
-    	vo.setVal1(req.getParameter("id"));
+    	vo.setVal_id(req.getParameter("id"));
     	if(userRepository.findById(vo.getVal_id())!=null) {
-    		System.out.println("Áßº¹ ¾ÆÀÌµð °¨ÁöµÊ");
+    		System.out.println("중복아이디 감지");
     		return "failed";
     	}
-    	vo.setVal2(req.getParameter("PASSWORD"));
-    	vo.setVal3(req.getParameter("name"));
-    	vo.setVal4(req.getParameter("phonenumber"));
+    	vo.setVal_password(req.getParameter("PASSWORD"));
+    	vo.setVal_name(req.getParameter("name"));
+    	vo.setVal_phonenumber(req.getParameter("phonenumber"));
     	userService.joinUser(vo);
     	return "index";
     }
