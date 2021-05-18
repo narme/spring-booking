@@ -14,6 +14,7 @@ public class UserService {
     public void joinUser(CustomerVO vo){
     	System.out.println("회원가입 요청 들어옴");
         userRepository.save(vo);
+        System.out.println("회원가입 요청 성공");
     }
 }
 
