@@ -12,9 +12,13 @@ public class UserService {
     UserRepository userRepository;
  
     public void joinUser(CustomerVO vo){
-    	System.out.println("È¸¿ø°¡ÀÔ ¿äÃ» µé¾î¿È");
+    	System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½");
         userRepository.save(vo);
-        System.out.println("È¸¿ø°¡ÀÔ ¿äÃ» ¼º°ø");
+        System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½");
+    }
+    
+    public CustomerVO findUserId(String id) {
+    	return userRepository.findById(id);
     }
 }
 
