@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import Team4.Booksys.VO.CustomerVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedReservation;
 import Team4.Booksys.service.LoginService;
+import Team4.Booksys.service.ReservationRepository;
 import Team4.Booksys.service.ReservationService;
 import Team4.Booksys.service.TableService;
 import Team4.Booksys.service.UserRepository;
@@ -84,7 +86,7 @@ public class UserController {
 		}
 
 		if (loginService.loginCheck(id, pw)) {
-			System.out.print("\n" + id + "님 login");
+			System.out.println("\n" + id + "님 login");
 
 			// 유저의 oid도 세션에 함께 저장한다. (DB연동관련)
 			CustomerVO vo = userRepository.findById(id);
@@ -103,7 +105,7 @@ public class UserController {
 			// return "/home";
 
 		} else {
-			System.out.print("False");
+			System.out.println("False");
 			return "<script> alert('아이디와 비밀번호가 일치하지 않습니다.');  location.href= '/index'; </script>";
 			// return "index";
 		}
@@ -234,4 +236,53 @@ public class UserController {
 
 		return "home";
 	}
+
+
+	
+	@Autowired
+	ReservationRepository ReservationRepository;
+
+	@RequestMapping(value = "/callModifyReserve/{oid}", produces = "text/html; charset=UTF-8")
+	public String modifyReserve(@PathVariable int oid,HttpSession session,Model model) {
+		System.out.println("dodo");
+		//HttpSession session = request.getSession(true);// 현재 세션 로드
+		System.out.println("oid is "+oid);
+		
+		//session.setAttribute("reservationOid", oid);
+		
+		model.addAttribute("userid", session.getAttribute("id"));
+		//model.addAttribute("reserveOid", session.getAttribute("reservationOid"));
+		model.addAttribute("reserveOid", oid);
+		
+		ReservationVO vo=ReservationRepository.findByOid(oid);
+		//model.addAttribute("reservePeople", vo.getVal_people_number());
+		//model.addAttribute("vo",vo);
+		
+		
+		ArrayList<modefiedReservation> list2 = new ArrayList<modefiedReservation>();
+		modefiedReservation mReserv = new modefiedReservation();
+		mReserv.setVal_oid(vo.getVal_oid());
+		mReserv.setVal_people_number(vo.getVal_people_number());
+		mReserv.setVal_rank(vo.getVal_rank());
+		mReserv.setVal_start_time(vo.getVal_start_time());
+		mReserv.setVal_tid(vo.getVal_tid());
+		list2.add(mReserv);
+		
+		model.addAttribute("vo",vo.getVal_start_time());
+		
+		model.addAttribute("list",list2);
+		
+		return "modifyReserve";
+		//ReservationVO vo=ReservationRepository.findByOid(oid);
+	
+		
+		//return "modifyReserve";
+	}
+
+	/*
+	 * @RequestMapping(value = "/modifyReserve")
+	public String modifyreserve() {
+		return "modifyReserve";
+	}
+	*/
 }

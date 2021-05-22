@@ -1,28 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>예약정보</title>
+<meta charset="UTF-8">
+<title>예약정보</title>
+
+<script type="text/javascript">
+function getModify() {
+	  
+	  const genderNodeList = document.getElementsByName('radiotext');
+	  
+	  genderNodeList.forEach((node) => {
+	    if(node.checked)  {
+	    	alert(node.value);
+	    	//return node.value;
+	    	//oid=node.value;
+	    	location.href="/callModifyReserve/"+node.value;
+	    }
+	    })
+}
+	
+function getDelete() {
+	  
+	  const genderNodeList = document.getElementsByName('radiotext');
+	  
+	  genderNodeList.forEach((node) => {
+	    if(node.checked)  {
+	    	alert(node.value);
+	      //document.getElementById('result').innerText = node.value;
+	    }
+	  }) 
+	}	
+</script>
+
 </head>
 <body>
-<h1 th:text="${userid} + '님의 예약 현황'"></h1>
+	<h1 th:text="${userid} + '님의 예약 현황'"></h1>
 
-<table border="1">
-    <tr>
-        <td>고유번호</td>
-        <td>날짜</td>
-        <td>테이블번호</td>
-        <td>인원수</td>
-        <td>앞 대기열</td>
-    </tr>
-    <tr th:each="list : ${list}">
-        <td th:text="${list.oid}"></td>
-        <td th:text="${list.start_time}"></td>
-        <td th:text="${list.tid}"></td>
-        <td th:text="${list.people_number}"></td>
-        <td th:text="${list.rank}"></td>
-    </tr>
-</table>
+
+	<table border="1">
+		<tr>
+			<td>check</td>
+			<td>고유번호</td>
+			<td>날짜</td>
+			<td>테이블번호</td>
+			<td>인원수</td>
+			<td>앞 대기열</td>
+
+
+		</tr>
+		<tr th:each="list : ${list}">
+			<td><input type="radio" name="radiotext" th:value=${list.oid}></td>
+			<td th:text="${list.oid}"></td>
+			<td th:text="${list.start_time}"></td>
+			<td th:text="${list.tid}"></td>
+			<td th:text="${list.people_number}"></td>
+			<td th:text="${list.rank}"></td>
+
+		</tr>
+
+
+	</table>
+
+	<button type="button" name="button" id="modifyButton"
+		onclick="getModify()">수정</button>
+	<button type="button" name="button" id="deleteButton"
+		onclick="getDelete()">삭제</button>
+
+
 
 </body>
 </html>

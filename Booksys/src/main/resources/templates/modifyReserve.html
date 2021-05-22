@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>modify page</h2>
+	<h1 th:text="${userid} + '님의 예약 현황'"></h1>
+	<h1 th:text="${reserveOid} + '번 예약'"></h1>
+	<h1 th:text="${vo} + '번 예약'"></h1>
+	
+	
+	<tr th:each="list : ${list}">
+			<td th:text="${list.oid}"></td>
+			<td th:text="${list.start_time}"></td>
+			<td th:text="${list.tid}"></td>
+			<td th:text="${list.people_number}"></td>
+			<td th:text="${list.rank}"></td>
+
+		</tr>
+	
+	
+</body>
+</html>
