@@ -61,12 +61,12 @@ public class UserController {
 	LoginService loginService;
 
 	@ResponseBody //return to body
-	@PostMapping(value = "/signIn.do")
+	@PostMapping(value = "/signIn.do", produces = "text/html; charset=UTF-8")
 	public String signIn(HttpSession session, HttpServletRequest req) {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("password");
 		if (id == "") {
-			return "<script> alert('아이디를 입력하세요');  location.href= '/index'; </script>";
+			return "<script> alert('아이디를 입력해주세요.');  location.href= '/index'; </script>";
 		}
 		if (pw == "") {
 			return "<script> alert('비밀번호를 입력하세요');  location.href= '/index'; </script>";
@@ -107,8 +107,9 @@ public class UserController {
 	}
 
 	// page mapping
-	@RequestMapping(value = "/home")
-	public String home() {
+	@RequestMapping(value = "/home",  produces = "text/html; charset=UTF-8")
+	public String home(HttpSession session) {
+		if(session.getAttribute("loginCheck") == null)return "index";
 		return "home";
 	}
 

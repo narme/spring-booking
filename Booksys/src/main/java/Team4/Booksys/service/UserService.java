@@ -12,13 +12,9 @@ public class UserService {
     UserRepository userRepository;
  
     public void joinUser(CustomerVO vo){
-    	System.out.println("ȸ������ ��û ����");
+    	System.out.println("회원가입 요청 들어옴");
         userRepository.save(vo);
-        System.out.println("ȸ������ ��û ����");
-    }
-    
-    public CustomerVO findUserId(String id) {
-    	return userRepository.findById(id);
+        System.out.println("회원가입 요청 성공");
     }
 }
 
