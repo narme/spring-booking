@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity(name="RESERVATION")
 public class ReservationVO {
@@ -13,8 +15,8 @@ public class ReservationVO {
 	private int uid;
 	private int people_number;
 	private String start_time;
-	private String end_time;
-	private int table;
+	//private String end_time;
+	private int tid;
 	private int wait;
 	private int rank;
 	
@@ -30,17 +32,18 @@ public class ReservationVO {
 	public void setVal_start_time(String val) {
         this.start_time = val;
 	}
+	/*
 	public void setVal_end_time(String val) {
         this.end_time = val;
-	}
-	public void setVal_table(int val) {
-	    this.oid = val;
+	}*/
+	public void setVal_tid(int val) {
+	    this.tid = val;
 	}
 	public void setVal_wait(int val) {
-	    this.oid = val;
+	    this.wait = val;
 	}
 	public void setVal_rank (int val) {
-	    this.oid = val;
+	    this.rank = val;
 	}
 	
 	public int getVal_oid() {
@@ -55,11 +58,12 @@ public class ReservationVO {
 	public String getVal_start_time() {
 	    return this.start_time;
 	}
+	/*
 	public String getVal_end_time() {
 	    return this.end_time;
-	}
-	public int getVal_table() {
-	    return this.table;
+	}*/
+	public int getVal_tid() {
+	    return this.tid;
 	}
 	public int getVal_wait() {
 	    return this.wait;

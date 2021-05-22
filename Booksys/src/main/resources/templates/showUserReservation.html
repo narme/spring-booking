@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>예약정보</title>
 </head>
 <body>
-<h1>showUserReservation</h1>
+<h1 th:text="${userid} + '님의 예약 현황'"></h1>
+
+<table border="1">
+    <tr>
+        <td>고유번호</td>
+        <td>날짜</td>
+        <td>테이블번호</td>
+        <td>인원수</td>
+        <td>앞 대기열</td>
+    </tr>
+    <tr th:each="list : ${list}">
+        <td th:text="${list.oid}"></td>
+        <td th:text="${list.start_time}"></td>
+        <td th:text="${list.tid}"></td>
+        <td th:text="${list.people_number}"></td>
+        <td th:text="${list.rank}"></td>
+    </tr>
+</table>
+
 </body>
 </html>
