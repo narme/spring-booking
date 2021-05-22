@@ -21,30 +21,22 @@ public class CustomerVO {
     private int noshow;
     
     
-    public void setVal_id(String val) {
-        this.id = val;
-    }
-
+    public void setVal_id(String val) { this.id = val; }
     public void setVal_name(String val) {
         this.name = val;
     }
-    
     public void setVal_password(String val) {
         this.password = val;
     }
-    
     public void setVal_phonenumber(String val) {
         this.phonenumber = val;
     }
-    
     public void setVal_oid(int val) {
         this.oid = val;
     }
-    
     public void setVal_level(int val) {
         this.level = val;
     }
-    
     public void setVal_noshow(int val) {
         this.noshow = val;
     }
