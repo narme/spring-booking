@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>home</title>
@@ -11,7 +11,8 @@ td {
 	text-align: center;
 	font-size: 20px;
 	font-family: 굴림;
-	border: 2px; border-color : #3333FF;
+	border: 2px;
+	border-color: #3333FF;
 	border-radius: 8px;
 	border-color: #3333FF; /*모서리 둥글게*/
 }
@@ -149,10 +150,10 @@ td {
 
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 	<h1>HOME</h1>
-
+	<h1 th:text="${userid} + '님 반갑습니다'"></h1>
 
 	<form action="/logOut.do" style="width: 94px;">
 		<input type="submit" value="log out">
