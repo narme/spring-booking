@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import Team4.Booksys.VO.CustomerVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedReservation;
-import Team4.Booksys.service.LoginService;
 import Team4.Booksys.service.ReservationRepository;
 import Team4.Booksys.service.ReservationService;
 import Team4.Booksys.service.TableService;
@@ -66,9 +65,7 @@ public class UserController {
 	}
 
 	// login
-	@Autowired
-	LoginService loginService;
-
+	
 	@ResponseBody // return to body
 	@PostMapping(value = "/signIn.do", produces = "text/html; charset=UTF-8")
 	public String signIn(HttpSession session, HttpServletRequest req) {
@@ -85,7 +82,7 @@ public class UserController {
 			// return "index";
 		}
 
-		if (loginService.loginCheck(id, pw)) {
+		if (userService.loginCheck(id, pw)) {
 			System.out.println("\n" + id + "님 login");
 
 			// 유저의 oid도 세션에 함께 저장한다. (DB연동관련)
@@ -244,8 +241,6 @@ public class UserController {
 
 	@RequestMapping(value = "/callModifyReserve/{oid}", produces = "text/html; charset=UTF-8")
 	public String modifyReserve(@PathVariable int oid,HttpSession session,Model model) {
-		System.out.println("dodo");
-		//HttpSession session = request.getSession(true);// 현재 세션 로드
 		System.out.println("oid is "+oid);
 		
 		//session.setAttribute("reservationOid", oid);
@@ -279,10 +274,13 @@ public class UserController {
 		//return "modifyReserve";
 	}
 
-	/*
-	 * @RequestMapping(value = "/modifyReserve")
-	public String modifyreserve() {
-		return "modifyReserve";
+	
+	@RequestMapping(value = "/callDeleteReserve/{oid}", produces = "text/html; charset=UTF-8")
+	public String callDeleteReserve(@PathVariable int oid,HttpSession session) {
+		 ReservationService.deleteReservationbyoid(oid);
+		return "redirect:/showUserReservation";
+	
 	}
-	*/
+	
+
 }

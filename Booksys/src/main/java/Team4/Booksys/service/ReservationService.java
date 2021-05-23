@@ -22,5 +22,10 @@ public class ReservationService {
     }
     public List<ReservationVO> getReservationList(int uid) {
     	return Repository.findAllByuid(uid);
-    } 
+    }
+	public void deleteReservationbyoid(int oid) {
+		// TODO Auto-generated method stub
+		Repository.deleteReservationbyoid(oid);
+	} 
+    
 }

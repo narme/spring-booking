@@ -3,23 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	window.onload = function() {
+		document.getElementById('time').chec
+	}
+</script>
+
 </head>
 <body>
-<h2>modify page</h2>
+	<h2>modify page</h2>
 	<h1 th:text="${userid} + '님의 예약 현황'"></h1>
 	<h1 th:text="${reserveOid} + '번 예약'"></h1>
 	<h1 th:text="${vo} + '번 예약'"></h1>
-	
-	
-	<tr th:each="list : ${list}">
-			<td th:text="${list.oid}"></td>
-			<td th:text="${list.start_time}"></td>
-			<td th:text="${list.tid}"></td>
-			<td th:text="${list.people_number}"></td>
-			<td th:text="${list.rank}"></td>
 
-		</tr>
-	
-	
+
+	<tr th:each="list : ${list}">
+		<td th:text="${list.oid}"></td>
+		<td th:text="${list.start_time}"></td>
+		<td th:text="${list.tid}"></td>
+		<td th:text="${list.people_number}"></td>
+		<td th:text="${list.rank}"></td>
+
+	</tr>
+
+
+	<form action="/addReservation" method="post">
+		<div>
+			<label for="date">날짜 </label> <input id="date" name="date"
+				type="date">
+		</div>
+		<div>
+			<label for="time">시간</label> <select name="time" id="time">
+				<option value="11">11:00</option>
+				<option value="12">12:00</option>
+				<option value="13">13:00</option>
+				<option value="14">14:00</option>
+				<option value="17">17:00</option>
+				<option value="18">18:00</option>
+				<option value="19">19:00</option>
+				<option value="20">20:00</option>
+			</select>
+		</div>
+		<div>
+			<label for="num_people">인원</label> <select name="num_people"
+				id="num_people">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+			</select>
+		</div>
+		<div>
+			<label for="table">table</label> <select name="table" id="table">
+				<option value="auto">자동배정</option>
+			</select>
+		</div>
+		<br> <input type="submit" value="예약 완료">
+	</form>
+
+
+
+
+
+
+
 </body>
 </html>
