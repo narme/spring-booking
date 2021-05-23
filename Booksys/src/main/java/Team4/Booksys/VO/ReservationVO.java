@@ -19,6 +19,7 @@ public class ReservationVO {
 	private int tid;
 	private int wait;
 	private int rank;
+	private int isdeleted;
 	
 	public void setVal_oid(int val) {
 	    this.oid = val;
@@ -45,6 +46,9 @@ public class ReservationVO {
 	public void setVal_rank (int val) {
 	    this.rank = val;
 	}
+	public void setVal_isdeleted (int val) {
+	    this.isdeleted = val;
+	}
 	
 	public int getVal_oid() {
 	    return this.oid;
@@ -70,5 +74,8 @@ public class ReservationVO {
 	}
 	public int getVal_rank() {
 	    return this.rank;
+	}
+	public int getVal_isdeleted() {
+	    return this.isdeleted;
 	}
 }

@@ -171,7 +171,8 @@ public class UserController {
 		HttpSession session = request.getSession(true);// 현재 세션 로드
 		int currentOid = (int) session.getAttribute("oid");
 		String currentid = (String) session.getAttribute("id");
-		List<ReservationVO> list = ReservationService.getReservationList(currentOid);
+		//List<ReservationVO> list = ReservationService.getReservationList(currentOid);
+		List<ReservationVO> list = ReservationService.getReservationListForUser(currentOid); //leewk 확인필요힘
 		ArrayList<modefiedReservation> list2 = new ArrayList<modefiedReservation>();
 		for (ReservationVO vo : list) {
 			int oid = vo.getVal_oid();
@@ -199,7 +200,7 @@ public class UserController {
 	TableService TableService;
 
 	@RequestMapping(value = "/addReservation")
-	public String addReservation(HttpServletRequest request, ReservationVO vo) {
+	public String addReservation(HttpServletRequest request, ReservationVO vo, Model model) {
 
 		HttpSession session = request.getSession(true);// 현재 세션 로드
 		vo.setVal_uid((int) session.getAttribute("oid"));// 세션의 oid값 가져오기
@@ -234,13 +235,13 @@ public class UserController {
 		vo.setVal_tid(tid);
 		ReservationService.addReservation(vo);
 		
-
+		model.addAttribute("userid", session.getAttribute("id"));
 		return "home";
 	}
 	@Autowired
 	EventService EventService;
 	@RequestMapping(value = "/addReservationEvent")
-	public String addReservationEvent(HttpServletRequest request, ReservationVO vo,EventVO evo) {
+	public String addReservationEvent(HttpServletRequest request, ReservationVO vo,EventVO evo,Model model) {
 
 		HttpSession session = request.getSession(true);// 현재 세션 로드
 		vo.setVal_uid((int) session.getAttribute("oid"));// 세션의 oid값 가져오기
@@ -284,6 +285,7 @@ public class UserController {
 		
 		EventService.addEvent(evo);
 		//이벤트 저장 끝
+		model.addAttribute("userid", session.getAttribute("id"));
 		return "home";
 	}
 	
