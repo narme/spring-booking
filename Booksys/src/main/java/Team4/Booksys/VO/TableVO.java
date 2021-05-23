@@ -9,16 +9,16 @@ import javax.persistence.Id;
 public class TableVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int oid;
+    private long oid;
 	private int number;
 	
-	public void setVal_oid(int val) {
+	public void setVal_oid(long val) {
 	    this.oid = val;
 	}
 	public void setVal_rid(int val) {
         this.number = val;
 	}
-	public int getVal_oid() {
+	public long getVal_oid() {
 	    return this.oid;
 	}
 	public int getVal_number() {
