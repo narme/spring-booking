@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Team4.Booksys.VO.CustomerVO;
+import Team4.Booksys.VO.EventVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedReservation;
 import Team4.Booksys.service.LoginService;
@@ -22,6 +23,7 @@ import Team4.Booksys.service.ReservationService;
 import Team4.Booksys.service.TableService;
 import Team4.Booksys.service.UserRepository;
 import Team4.Booksys.service.UserService;
+import Team4.Booksys.service.EventService;
 
 @Controller
 public class UserController {
@@ -231,7 +233,58 @@ public class UserController {
 
 		vo.setVal_tid(tid);
 		ReservationService.addReservation(vo);
+		
 
 		return "home";
 	}
+	@Autowired
+	EventService EventService;
+	@RequestMapping(value = "/addReservationEvent")
+	public String addReservationEvent(HttpServletRequest request, ReservationVO vo,EventVO evo) {
+
+		HttpSession session = request.getSession(true);// 현재 세션 로드
+		vo.setVal_uid((int) session.getAttribute("oid"));// 세션의 oid값 가져오기
+		vo.setVal_people_number(Integer.parseInt(request.getParameter("num_people")));// 인원수 가져오기
+
+		String date = request.getParameter("date");// 날짜 가져오기
+		String time = request.getParameter("time");// 시간 가져오기
+		String datetime = date + " " + time;
+		vo.setVal_start_time(datetime);// 날짜 + 시간 가져오기
+
+		// 자동배정의 tid 구하기
+		int tid = 1;
+		int mintablewait = 9999;
+		int numOftable = TableService.numberofTable(); // 테이블의개수
+		for (int j = 1; j <= numOftable; j++) {
+			int i = ReservationService.findWaitRank(datetime, j);
+			if (i < mintablewait) {
+				mintablewait = i;
+				tid = j;
+			}
+		}
+		
+		int i = ReservationService.findWaitRank(datetime, tid);// 동일날짜 동시간대에 있는 예약의 개수 리턴
+		if (i != 0)/* 이미 해당시간에 예약이 존재한다면 */ {
+			vo.setVal_wait(1);// 예약이 존재한다.
+			vo.setVal_rank(i);// 대기순서는 i
+		} else/* 해당시간에 예약이 없다면 */ {
+			vo.setVal_wait(0);
+			vo.setVal_rank(0);
+		}
+
+		vo.setVal_tid(tid);
+		ReservationService.addReservation(vo);
+		//여기까지 reservation 처리
+		//여기부터 event 처리
+		int reserv_oid = vo.getVal_oid(); //새로 추가된 예약의 oid정보 event의 외래 키로 쓰임
+		evo.setVal_rid(reserv_oid);
+		evo.setVal_event_type(request.getParameter("type"));
+		evo.setVal_event_song(request.getParameter("song"));
+		evo.setVal_event_memo(request.getParameter("memo"));
+		
+		EventService.addEvent(evo);
+		//이벤트 저장 끝
+		return "home";
+	}
+	
 }
