@@ -87,6 +87,7 @@ public class UserController {
 			
 			session.setAttribute("loginCheck", true);
 			session.setAttribute("id", id);
+			session.setAttribute("level", vo.getVal_level());
 			return "<script> alert('로그인 되셨습니다!');  location.href= '/home'; </script>";
 			// return "/home";
 
@@ -108,8 +109,9 @@ public class UserController {
 
 	// page mapping
 	@RequestMapping(value = "/home",  produces = "text/html; charset=UTF-8")
-	public String home(HttpSession session) {
+	public String home(HttpSession session, Model model) {
 		if(session.getAttribute("loginCheck") == null)return "index";
+		model.addAttribute("level", session.getAttribute("level"));
 		return "home";
 	}
 

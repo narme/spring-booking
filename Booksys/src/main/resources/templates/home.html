@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
 <head>
 <meta charset="UTF-8">
 <title>home</title>
@@ -158,7 +160,7 @@ td {
 		<input type="submit" value="log out">
 	</form>
 
-	<form action="/admin.do" style="width: 94px;">
+	<form action="/admin.do" style="width: 94px;" th:if="${level.equals(1)}">
 		<input type="submit" value="admin">
 	</form>
 
