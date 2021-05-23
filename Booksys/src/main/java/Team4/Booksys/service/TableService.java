@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import Team4.Booksys.VO.TableVO;
 
+import java.util.List;
+
 @Service
 public class TableService {
 	@Autowired
@@ -12,5 +14,7 @@ public class TableService {
 	public int numberofTable(){
 		return repository.numberOfTable();
 	}
-
+	public List<TableVO> getAllTable() {
+		return repository.findAll();
+	}
 }

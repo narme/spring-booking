@@ -20,6 +20,14 @@ public class ReservationService {
     public int findWaitRank(String time, int tableid) {
     	return Repository.numberOfReservationBytimeAndtid(time, tableid);
     }
+    public int findByTableId(int uid){
+        return Repository.numberOfReservationByTableId(uid);
+    }
+
+    public int countReservationByMonth(String t1, String t2){
+        return Repository.numberOfReservationByTime(t1, t2);
+    }
+
     public List<ReservationVO> getReservationList(int uid) {
     	return Repository.findAllByuid(uid);
     } 
