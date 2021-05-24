@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>테이블 번호</td>
+    </tr>
+    <tr th:each="list : ${table}">
+        <td th:text="${list.getVal_number()}"></td>
+        <td>
+            <form action="/deleteTable.do" style="width: 94px;">
+                <input type="hidden" name="tableNumber" th:value="${list.getVal_oid()}" />
+                <input type="submit" value="삭제">
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
