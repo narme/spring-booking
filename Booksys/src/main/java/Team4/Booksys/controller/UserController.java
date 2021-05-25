@@ -19,12 +19,12 @@ import Team4.Booksys.VO.CustomerVO;
 import Team4.Booksys.VO.EventVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedReservation;
+import Team4.Booksys.service.EventService;
 import Team4.Booksys.service.ReservationRepository;
 import Team4.Booksys.service.ReservationService;
 import Team4.Booksys.service.TableService;
 import Team4.Booksys.service.UserRepository;
 import Team4.Booksys.service.UserService;
-import Team4.Booksys.service.EventService;
 
 @Controller
 public class UserController {
@@ -38,17 +38,19 @@ public class UserController {
 	@RequestMapping(value = "/joinUs.do", method = RequestMethod.POST)
 	public String joinUs(HttpServletRequest req, CustomerVO vo) {
 		vo.setVal_id(req.getParameter("id"));
+		System.out.print(vo.getVal_id());
 		if (userRepository.findById(vo.getVal_id()) != null) {
 			System.out.println("중복아이디 감지");
 			return "<script> alert('중복된 아이디 입니다.');  location.href= '/join'; </script>";
 		}
-		vo.setVal_password(req.getParameter("PASSWORD"));
+		vo.setVal_password(req.getParameter("password"));
 		vo.setVal_name(req.getParameter("name"));
 		vo.setVal_phonenumber(req.getParameter("phonenumber"));
-		
+		System.out.print(vo.getVal_password());
 		/*확인 부분*/
 		if(vo.getVal_id().equals("")||vo.getVal_name().equals("")||vo.getVal_password().equals("")||vo.getVal_phonenumber().equals(""))
 			return "<script> alert('정보를 모두 입력해주세요.');  location.href= '/join'; </script>";
+		
 		/*끝*/
 		
 		userService.joinUser(vo);
