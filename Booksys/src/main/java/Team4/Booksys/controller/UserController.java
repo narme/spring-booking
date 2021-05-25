@@ -99,14 +99,10 @@ public class UserController {
 			
 			//if (vo.getVal_level() == 0)
 			return "<script> alert('로그인 되셨습니다!');  location.href= '/home'; </script>";
-			//else //관리자
-			//	return "<script> alert('로그인 되셨습니다!');  location.href= '/adminhome'; </script>";
-			// return "/home";
 
 		} else {
 			System.out.println("False");
 			return "<script> alert('아이디와 비밀번호가 일치하지 않습니다.');  location.href= '/index'; </script>";
-			// return "index";
 		}
 
 	}
