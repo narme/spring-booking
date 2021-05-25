@@ -102,12 +102,6 @@ function getDelete() {
 			<td th:text="${list.tid}"></td>
 			<td th:text="${list.people_number}"></td>
 			<td th:text="${list.rank}"></td>
- <td><center>
-        	<form action="/cancleReservation.do" method="post">
-        			<input type="hidden" name="cancleoid" th:value="${list.oid}">
-        			<input type="submit" value = "취소하기">
-        	</form>
-        </center></td>
 		</tr>
 
 

@@ -1,6 +1,9 @@
 package Team4.Booksys.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -94,6 +97,10 @@ public class UserController {
 			int oid = vo.getVal_oid();
 			session.setAttribute("oid", oid);
 			// 코드끝
+			// 유저의 level도 세션에 함께 저장하는게 좋아보임
+			int level = vo.getVal_level();
+			session.setAttribute("level",level);
+			//코드끝
 
 			session.setAttribute("loginCheck", true);
 			session.setAttribute("id", id);
@@ -101,14 +108,10 @@ public class UserController {
 			
 			//if (vo.getVal_level() == 0)
 			return "<script> alert('로그인 되셨습니다!');  location.href= '/home'; </script>";
-			//else //관리자
-			//	return "<script> alert('로그인 되셨습니다!');  location.href= '/adminhome'; </script>";
-			// return "/home";
 
 		} else {
 			System.out.println("False");
 			return "<script> alert('아이디와 비밀번호가 일치하지 않습니다.');  location.href= '/index'; </script>";
-			// return "index";
 		}
 
 	}
@@ -127,9 +130,14 @@ public class UserController {
 	public String home(HttpSession session,Model model) {
 		if (session.getAttribute("loginCheck") == null)
 			return "index";
-		
-		
+		/*오류수정 2222 : 모든 home으로 넘어가는 부분에서 문제가 발생해 처음 세션에 level도 저장하게 개선함
+		//오류수정 : 뷰에 level을 넘겨주지 않는 오류가 있었음
+		String cur_id = (String) session.getAttribute("id");
+		CustomerVO vo = userRepository.findById(cur_id);
+		*/
 		model.addAttribute("userid", session.getAttribute("id"));
+		model.addAttribute("level", session.getAttribute("level"));
+		
 		return "home";
 	}
 	
@@ -172,7 +180,7 @@ public class UserController {
 		HttpSession session = request.getSession(true);// 현재 세션 로드
 		int currentOid = (int) session.getAttribute("oid");
 		String currentid = (String) session.getAttribute("id");
-		List<ReservationVO> list = ReservationService.getReservationList(currentOid);
+		List<ReservationVO> list = ReservationService.getReservationListForUser(currentOid);
 		ArrayList<modefiedReservation> list2 = new ArrayList<modefiedReservation>();
 		for (ReservationVO vo : list) {
 			int oid = vo.getVal_oid();
@@ -180,11 +188,27 @@ public class UserController {
 			int rank = vo.getVal_rank();
 			int tid = vo.getVal_tid();
 			String start_time = vo.getVal_start_time();
+			
+			/// 날짜 형식 변환 코드부분 //////////////////////
+		    SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		    SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd HH시");
+
+		    Date date = null;
+			try {
+				date = in.parse(start_time);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    String result = out.format(date);
+		    /// 날짜 형식 변환 끝 //////////////////////////
+			
 			modefiedReservation mReserv = new modefiedReservation();
 			mReserv.setVal_oid(oid);
 			mReserv.setVal_people_number(people_number);
 			mReserv.setVal_rank(rank);
-			mReserv.setVal_start_time(start_time);
+			//mReserv.setVal_start_time(start_time);
+			mReserv.setVal_start_time(result);
 			mReserv.setVal_tid(tid);
 			list2.add(mReserv);
 		}
@@ -235,6 +259,7 @@ public class UserController {
 		vo.setVal_tid(tid);
 		ReservationService.addReservation(vo);		
 		model.addAttribute("userid", session.getAttribute("id"));
+		model.addAttribute("level", session.getAttribute("level"));
 		return "home";
 	}
 	
@@ -286,53 +311,12 @@ public class UserController {
 		EventService.addEvent(evo);
 		//이벤트 저장 끝
 		model.addAttribute("userid", session.getAttribute("id"));
+		model.addAttribute("level", session.getAttribute("level"));
 		return "home";
 	}
-	@Autowired
-	ReservationRepository ReservationRepository;
+	
 
-	@RequestMapping(value = "/callModifyReserve/{oid}", produces = "text/html; charset=UTF-8")
-	public String modifyReserve(@PathVariable int oid,HttpSession session,Model model) {
-		System.out.println("oid is "+oid);
-		
-		//session.setAttribute("reservationOid", oid);
-		
-		model.addAttribute("userid", session.getAttribute("id"));
-		//model.addAttribute("reserveOid", session.getAttribute("reservationOid"));
-		model.addAttribute("reserveOid", oid);
-		
-		ReservationVO vo=ReservationRepository.findByOid(oid);
-		//model.addAttribute("reservePeople", vo.getVal_people_number());
-		//model.addAttribute("vo",vo);
-		
-		
-		ArrayList<modefiedReservation> list2 = new ArrayList<modefiedReservation>();
-		modefiedReservation mReserv = new modefiedReservation();
-		mReserv.setVal_oid(vo.getVal_oid());
-		mReserv.setVal_people_number(vo.getVal_people_number());
-		mReserv.setVal_rank(vo.getVal_rank());
-		mReserv.setVal_start_time(vo.getVal_start_time());
-		mReserv.setVal_tid(vo.getVal_tid());
-		list2.add(mReserv);
-		
-		model.addAttribute("vo",vo.getVal_start_time());
-		
-		model.addAttribute("list",list2);
-		
-		return "modifyReserve";
-		//ReservationVO vo=ReservationRepository.findByOid(oid);
-	
-		
-		//return "modifyReserve";
-	}
 
-	
-	@RequestMapping(value = "/callDeleteReserve/{oid}", produces = "text/html; charset=UTF-8")
-	public String callDeleteReserve(@PathVariable int oid,HttpSession session) {
-		 ReservationService.deleteReservationbyoid(oid);
-		return "redirect:/showUserReservation";
-	
-	}
 	
 
 }
