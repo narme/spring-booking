@@ -125,8 +125,11 @@ public class UserController {
 		if (session.getAttribute("loginCheck") == null)
 			return "index";
 		
-		
+		//오류수정 : 뷰에 level을 넘겨주지 않는 오류가 있었음
+		String cur_id = (String) session.getAttribute("id");
+		CustomerVO vo = userRepository.findById(cur_id);
 		model.addAttribute("userid", session.getAttribute("id"));
+		model.addAttribute("level", vo.getVal_level());
 		return "home";
 	}
 	
