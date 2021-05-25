@@ -47,7 +47,7 @@ public class UserController {
 		vo.setVal_phonenumber(req.getParameter("phonenumber"));
 		
 		/*확인 부분*/
-		if(vo.getVal_id()==""||vo.getVal_name()==""||vo.getVal_password()==""||vo.getVal_phonenumber()=="")
+		if(vo.getVal_id().equals("")||vo.getVal_name().equals("")||vo.getVal_password().equals("")||vo.getVal_phonenumber().equals(""))
 			return "<script> alert('정보를 모두 입력해주세요.');  location.href= '/join'; </script>";
 		/*끝*/
 		
@@ -73,10 +73,10 @@ public class UserController {
 	public String signIn(HttpSession session, HttpServletRequest req) {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("password");
-		if (id == "") {
+		if (id.equals("")) {
 			return "<script> alert('아이디를 입력해주세요.');  location.href= '/index'; </script>";
 		}
-		if (pw == "") {
+		if (pw.equals("")) {
 			return "<script> alert('비밀번호를 입력하세요');  location.href= '/index'; </script>";
 		}
 		if (userRepository.findById(id) == null) {
@@ -97,10 +97,10 @@ public class UserController {
 			session.setAttribute("id", id);
 			session.setAttribute("level", vo.getVal_level());
 			
-			if (vo.getVal_level() == 0)
-				return "<script> alert('로그인 되셨습니다!');  location.href= '/home'; </script>";
-			else //관리자 
-				return "<script> alert('로그인 되셨습니다!');  location.href= '/adminhome'; </script>";
+			//if (vo.getVal_level() == 0)
+			return "<script> alert('로그인 되셨습니다!');  location.href= '/home'; </script>";
+			//else //관리자
+			//	return "<script> alert('로그인 되셨습니다!');  location.href= '/adminhome'; </script>";
 			// return "/home";
 
 		} else {
