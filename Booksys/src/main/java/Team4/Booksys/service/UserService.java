@@ -16,6 +16,22 @@ public class UserService {
         userRepository.save(vo);
         System.out.println("회원가입 요청 성공");
     }
+    
+    public boolean loginCheck(String id, String pw) {
+		/*test*/
+		//System.out.println("   loginCheck 동작 ");
+		//System.out.println("id: "+ id+"pw: "+pw);
+		
+		CustomerVO vo = userRepository.findById(id);
+		
+		if (vo.getVal_password().contentEquals(pw)) {
+			return true;
+		}
+
+		else
+			return false;
+	}
+    
 }
 
 

@@ -31,6 +31,11 @@ public class ReservationService {
     public List<ReservationVO> getReservationList(int uid) {
     	return Repository.findAllByuid(uid);
     }
+	public void deleteReservationbyoid(int oid) {
+		// TODO Auto-generated method stub
+		Repository.deleteReservationbyoid(oid);
+	} 
+    
 
     public List<ReservationVO> getReservationListForUser(int uid){
     	return Repository.findAllByuidForUser(uid);

@@ -1,35 +1,126 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>예약정보</title>
+<meta charset="UTF-8">
+<title>예약정보</title>
+
+<script type="text/javascript">
+function getModify() {
+	  
+	  const genderNodeList = document.getElementsByName('radiotext');
+	  
+	  genderNodeList.forEach((node) => {
+	    if(node.checked)  {
+	    	//alert(node.value);
+	    	//return node.value;
+	    	//oid=node.value;
+	    	location.href="/callModifyReserve/"+node.value;
+	    }
+	    })
+}
+	
+function getDelete() {
+	  
+	  const genderNodeList = document.getElementsByName('radiotext');
+	  
+	  genderNodeList.forEach((node) => {
+	    if(node.checked)  {
+	    	//alert(node.value);
+	    		
+	    	
+	    	Swal.fire({
+	    		  title: '정말 삭제 하시겠습니까?',
+	    		  text: "예약을 삭제하시면 복구하실수 없습니다",
+	    		  icon: 'warning',
+	    		  showCancelButton: true,
+	    		  confirmButtonColor: '#3085d6',
+	    		  cancelButtonColor: '#d33',
+	    		  confirmButtonText: '삭제',
+	    		  cancelButtonText: '취소'
+	    		}).then((result) => {
+	    		
+	    		  if (result.isConfirmed) {
+	    			  //삭제 부분  
+	    			  location.href="/callDeleteReserve/"+node.value;
+	    		    	Swal.fire(
+	    		    		'Deleted',
+	  	    		      'Your file has been deleted.',
+	  	    		      'success'
+	   	    		  	)
+	    		     
+	    		  }
+	    		})
+	    }
+	  }) 
+	  
+	  
+	  function reCheckDelete(){
+		  Swal.fire({
+	    		  title: 'Are you sure?',
+	    		  text: "You won't be able to revert this!",
+	    		  icon: 'warning',
+	    		  showCancelButton: true,
+	    		  confirmButtonColor: '#3085d6',
+	    		  cancelButtonColor: '#d33',
+	    		  confirmButtonText: 'Yes, delete it!'
+	    		}).then((result) => {
+	    		
+	    		  if (result.isConfirmed) {
+	    		    Swal.fire(
+	    		      'Deleted!',
+	    		      'Your file has been deleted.',
+	    		      'success'
+	    		    )
+	    		  }
+	    		})
+	  }
+	}	
+</script>
+
 </head>
 <body>
-<h1 th:text="${userid} + '님의 예약 현황'"></h1>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-<table border="1">
-    <tr>
-        <td>고유번호</td>
-        <td>날짜</td>
-        <td>테이블번호</td>
-        <td>인원수</td>
-        <td>앞 대기열</td>
-        <td>해당 예약 취소하기</td>
-    </tr>
-    <tr th:each="list : ${list}">
-        <td th:text="${list.oid}"></td>
-        <td th:text="${list.start_time}"></td>
-        <td th:text="${list.tid}"></td>
-        <td th:text="${list.people_number}"></td>
-        <td th:text="${list.rank}"></td>
-        <td><center>
+	<h1 th:text="${userid} + '님의 예약 현황'"></h1>
+
+
+	<table border="1">
+		<tr>
+			<td>check</td>
+			<td>고유번호</td>
+			<td>날짜</td>
+			<td>테이블번호</td>
+			<td>인원수</td>
+			<td>앞 대기열</td>
+
+
+		</tr>
+		<tr th:each="list : ${list}">
+			<td><input type="radio" name="radiotext" th:value=${list.oid}></td>
+			<td th:text="${list.oid}"></td>
+			<td th:text="${list.start_time}"></td>
+			<td th:text="${list.tid}"></td>
+			<td th:text="${list.people_number}"></td>
+			<td th:text="${list.rank}"></td>
+ <td><center>
         	<form action="/cancleReservation.do" method="post">
         			<input type="hidden" name="cancleoid" th:value="${list.oid}">
         			<input type="submit" value = "취소하기">
         	</form>
         </center></td>
-    </tr>
-</table>
+		</tr>
+
+
+	</table>
+
+	<button type="button" name="button" id="modifyButton"
+		onclick="getModify()">수정</button>
+	<button type="button" name="button" id="deleteButton"
+		onclick="getDelete()">삭제</button>
+	<button type="button" name="button" id="deleteButton"
+		onclick="location.href='/home';">뒤로가기</button>
+
+
 
 </body>
 </html>
