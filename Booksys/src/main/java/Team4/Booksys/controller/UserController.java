@@ -1,6 +1,9 @@
 package Team4.Booksys.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -166,7 +169,7 @@ public class UserController {
 		HttpSession session = request.getSession(true);// 현재 세션 로드
 		int currentOid = (int) session.getAttribute("oid");
 		String currentid = (String) session.getAttribute("id");
-		List<ReservationVO> list = ReservationService.getReservationList(currentOid);
+		List<ReservationVO> list = ReservationService.getReservationListForUser(currentOid);
 		ArrayList<modefiedReservation> list2 = new ArrayList<modefiedReservation>();
 		for (ReservationVO vo : list) {
 			int oid = vo.getVal_oid();
@@ -174,11 +177,27 @@ public class UserController {
 			int rank = vo.getVal_rank();
 			int tid = vo.getVal_tid();
 			String start_time = vo.getVal_start_time();
+			
+			/// 날짜 형식 변환 코드부분 //////////////////////
+		    SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		    SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd HH시");
+
+		    Date date = null;
+			try {
+				date = in.parse(start_time);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    String result = out.format(date);
+		    /// 날짜 형식 변환 끝 //////////////////////////
+			
 			modefiedReservation mReserv = new modefiedReservation();
 			mReserv.setVal_oid(oid);
 			mReserv.setVal_people_number(people_number);
 			mReserv.setVal_rank(rank);
-			mReserv.setVal_start_time(start_time);
+			//mReserv.setVal_start_time(start_time);
+			mReserv.setVal_start_time(result);
 			mReserv.setVal_tid(tid);
 			list2.add(mReserv);
 		}
@@ -320,13 +339,7 @@ public class UserController {
 		//return "modifyReserve";
 	}
 
-	
-	@RequestMapping(value = "/callDeleteReserve/{oid}", produces = "text/html; charset=UTF-8")
-	public String callDeleteReserve(@PathVariable int oid,HttpSession session) {
-		 ReservationService.deleteReservationbyoid(oid);
-		return "redirect:/showUserReservation";
-	
-	}
+
 	
 
 }
