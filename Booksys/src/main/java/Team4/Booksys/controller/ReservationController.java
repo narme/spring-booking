@@ -81,6 +81,7 @@ public class ReservationController {
 		
 	}
 	
+
 	@ResponseBody
 	@RequestMapping(value = "/modifyReservation.do")
 	public String showTableView(HttpServletRequest request, Model model, HttpSession session) {

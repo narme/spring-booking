@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +22,6 @@ import Team4.Booksys.VO.EventVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedReservation;
 import Team4.Booksys.service.EventService;
-import Team4.Booksys.service.ReservationRepository;
 import Team4.Booksys.service.ReservationService;
 import Team4.Booksys.service.TableService;
 import Team4.Booksys.service.UserRepository;
@@ -158,7 +156,7 @@ public class UserController {
 		return "index";
 	}
 	
-
+	
 	
 	@RequestMapping(value = "/eventReservation")
 	public String eventReservation() {
