@@ -60,7 +60,35 @@ public class ReservationService {
     		Repository.updateReservationIsdeleted(oid);
     	}
     }
+    public void modifyReservation(int oid, String input_start_time,int input_people_number, int new_tid, int new_wait, int new_rank) { 
+    	ReservationVO vo = Repository.findByOid(oid);
+    	int tid = vo.getVal_tid();
+    	int rank = vo.getVal_rank();
+    	String origin_start_time = vo.getVal_start_time();
+    	
+    
+    	//변경이전 시간대의 rank영향받는 예약들의 리스트임
+    	List<ReservationVO> list = Repository.findAllReservationBytimeAndtidAndRank(origin_start_time, tid, rank);
+    	if(list.size() == 0) {//이 예약 뒤로 대기중인 예약이 없다면
+    		Repository.updateReservationValues(input_people_number, input_start_time, new_tid, new_wait, new_rank, oid);
+    	} 
+    		
+    	else { //이 예약 뒤로 대기중인 예약이 있다면
+    		//대기순서 조절 시작
+    		for (ReservationVO vo2 : list) {
+    			int nowoid = vo2.getVal_oid();
+    			Repository.updateReservationRank(nowoid);//rank 조절
+    			Repository.updateReservationWait(nowoid);//wait 조절
+    		}
+    		Repository.updateReservationValues(input_people_number, input_start_time, new_tid, new_wait, new_rank, oid);
+    	}
+    }
+    
     public ReservationVO findByOid(int oid){
         return Repository.findByOid(oid);
+    }
+    
+    public void updateReservationPeopleNumber(int people_num, int oid) {
+    	Repository.updateReservationPeopleNumber(people_num, oid);
     }
 }
