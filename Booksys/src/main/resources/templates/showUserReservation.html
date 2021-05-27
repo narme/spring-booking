@@ -4,7 +4,22 @@
 <meta charset="UTF-8">
 <title>예약정보</title>
 
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+ 
+ <link rel="stylesheet" href="assets/css/main.css" />
+
 <script type="text/javascript">
+
 function getModify() {
 	  
 	  const genderNodeList = document.getElementsByName('radiotext');
@@ -51,70 +66,74 @@ function getDelete() {
 	    		  }
 	    		})
 	    }
-	  }) 
-	  
-	  
-	  function reCheckDelete(){
-		  Swal.fire({
-	    		  title: 'Are you sure?',
-	    		  text: "You won't be able to revert this!",
-	    		  icon: 'warning',
-	    		  showCancelButton: true,
-	    		  confirmButtonColor: '#3085d6',
-	    		  cancelButtonColor: '#d33',
-	    		  confirmButtonText: 'Yes, delete it!'
-	    		}).then((result) => {
-	    		
-	    		  if (result.isConfirmed) {
-	    		    Swal.fire(
-	    		      'Deleted!',
-	    		      'Your file has been deleted.',
-	    		      'success'
-	    		    )
-	    		  }
-	    		})
-	  }
-	}	
+	  })
+}
 </script>
 
+
+<noscript>
+	<link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+
+
 </head>
-<body>
+<body class="is-preload">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-	<h1 th:text="${userid} + '님의 예약 현황'"></h1>
+	<!-- Wrapper -->
+	<div id="wrapper">
 
+		<article>
+			<h2 class="major" th:text="${userid} + '님의 예약 현황'"></h2>
+			<table>
+				<thead>
+					<tr>
+						<td>check</td>
+						<td>고유번호</td>
+						<td>날짜</td>
+						<td>테이블번호</td>
+						<td>인원수</td>
+						<td>앞 대기열</td>
 
-	<table border="1">
-		<tr>
-			<td>check</td>
-			<td>고유번호</td>
-			<td>날짜</td>
-			<td>테이블번호</td>
-			<td>인원수</td>
-			<td>앞 대기열</td>
+					</tr>
+				</thead>
+				<tr th:each="list : ${list}">
+					<td><input type="radio" th:id="${list.oid}" name="radiotext"
+						th:value=${list.oid}> <!--  lable 삭제 하면 에러남.. --> <label
+						th:for="${list.oid}">✔</label></td>
+					<td th:text="${list.oid}"></td>
+					<td th:text="${list.start_time}"></td>
+					<td th:text="${list.tid}"></td>
+					<td th:text="${list.people_number}"></td>
+					<td th:text="${list.rank}"></td>
+				</tr>
 
+			</table>
+			<button type="button" name="button" id="modifyButton"
+				onclick="getModify()">수정</button>
+			<button type="button" name="button" id="deleteButton"
+				onclick="getDelete()">삭제</button>
+			<button type="button" name="button" id="deleteButton"
+				onclick="location.href='/home';">뒤로가기</button>
 
-		</tr>
-		<tr th:each="list : ${list}">
-			<td><input type="radio" name="radiotext" th:value=${list.oid}></td>
-			<td th:text="${list.oid}"></td>
-			<td th:text="${list.start_time}"></td>
-			<td th:text="${list.tid}"></td>
-			<td th:text="${list.people_number}"></td>
-			<td th:text="${list.rank}"></td>
-		</tr>
+		</article>
 
+		<!-- Footer -->
+		<footer id="footer">
+			<p class="copyright">
+				&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.
+			</p>
+		</footer>
 
-	</table>
+	</div>
+	<!-- BG -->
+	<div id="bg"></div>
 
-	<button type="button" name="button" id="modifyButton"
-		onclick="getModify()">수정</button>
-	<button type="button" name="button" id="deleteButton"
-		onclick="getDelete()">삭제</button>
-	<button type="button" name="button" id="deleteButton"
-		onclick="location.href='/home';">뒤로가기</button>
-
-
-
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -1,7 +1,5 @@
 package Team4.Booksys.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import Team4.Booksys.VO.EventVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedEvent;
-import Team4.Booksys.VO.modefiedReservation;
 import Team4.Booksys.VO.modefiedReservationDivideDateAndTime;
+import Team4.Booksys.service.EventService;
 import Team4.Booksys.service.ReservationRepository;
 import Team4.Booksys.service.ReservationService;
 import Team4.Booksys.service.TableService;
-import Team4.Booksys.service.EventService;
 @Controller
 public class ReservationController {
 	@Autowired
@@ -80,6 +77,14 @@ public class ReservationController {
 		return "modifyReserve";
 		
 	}
+	
+	/*
+	@RequestMapping(value="/modifyReserve")
+	public String modify() {
+		return "modifyReserve";
+	}
+	*/
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/modifyReservation.do")

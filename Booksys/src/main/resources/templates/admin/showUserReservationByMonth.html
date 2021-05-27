@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
-<body>
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <head>
-  <meta charset="UTF-8">
-  <title>월별 추이</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
+<link rel="stylesheet" href="assets/css/main.css" />
+<noscript>
+	<link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+
+<meta charset="UTF-8">
+<title>월별 추이</title>
 </head>
-<body>
-<h1>월별 추이</h1>
 
-<table border="1">
-  <tr>
-    <td>날짜</td>
-    <td>예약 수</td>
-  </tr>
-  <tr th:if="${dataList.empty}">
-    <td colspan="2"> No Books Available </td>
-  </tr>
-  <tr th:each="data : ${dataList}">
-    <td th:text="${data.getTime()}"></td>
-    <td th:text="${data.getCount()}"></td>
-  </tr>
-  </table>
+<body class="is-preload">
 
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<article>
+			<h2 class="major">월별추이</h2>
+
+			<table>
+				<thead>
+					<tr>
+						<td>날짜</td>
+						<td>예약 수</td>
+					</tr>
+				</thead>
+				<tr th:if="${dataList.empty}">
+					<td colspan="2">No Books Available</td>
+				</tr>
+				<tr th:each="data : ${dataList}">
+					<td th:text="${data.getTime()}"></td>
+					<td th:text="${data.getCount()}"></td>
+				</tr>
+			</table>
+			<button type="button" name="button" id="deleteButton"
+				onclick="location.href='/admin';">뒤로가기</button>
+		</article>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<p class="copyright">
+				&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.
+			</p>
+		</footer>
+
+	</div>
+	<!-- BG -->
+	<div id="bg"></div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
 </body>
 </html>

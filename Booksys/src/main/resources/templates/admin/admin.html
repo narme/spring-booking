@@ -1,40 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>admin</title>
+<title>admin</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
 
-    <script>
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
+
+<link rel="stylesheet" href="assets/css/main.css" />
+<noscript>
+	<link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+
+<script>
 	function addTable() {
-		window.open("/locateAddTable.do", "a","width=400, height=300, left=100, top=50");
+		window.open("/locateAddTable.do", "a",
+				"width=400, height=300, left=100, top=50");
+		//location.href="/locateAddTable.do";
 	}
 
-	function showTable(){
-	    window.open("/locateShowTable.do", "a","width=400, height=300, left=100, top=50");
+	function showTable() {
+		window.open("/locateShowTable.do", "a",
+				"width=400, height=300, left=100, top=50");
+		//location.href="/locateShowTable.do";
 	}
 
-
-	function showReservationByMonth(){
-	    window.open("/showReservationByMonth.do", "a","width=400, height=300, left=100, top=50");
+	function showReservationByMonth() {
+		window.open("/showReservationByMonth.do", "a",
+				"width=400, height=300, left=100, top=50");
+		//location.href="/showReservationByMonth.do";
 	}
-    </script>
+	
+	function showReservation() {
+		location.href="/showReservation.do"
+	}
+</script>
 </head>
 
-<body>
-    <h1>Admin PAGE</h1>
+<body class="is-preload">
+	<!-- Wrapper -->
+	<div id="wrapper">
 
-    <form action="/logOut.do" style="width: 94px;">
-        <input type="submit" value="log out">
-    </form>
+		<!-- Header -->
+		<header id="header">
+			<div class="logo">
+				<span class="icon fa-gem"></span>
+			</div>
+			<div class="content">
+				<div class="inner">
+					<h1>Admin PAGE</h1>
+					<h3>관리자님 반갑습니다</h3>
+					<!-- <h3 th:text="${userid} + '님 반갑습니다'"></h3> -->
+					<p>
+						A fully responsive site template designed by <a
+							href="https://html5up.net">HTML5 UP</a> and released<br /> for
+						free under the <a href="https://html5up.net/license">Creative
+							Commons</a> license.
+					</p>
+				</div>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="/logOut.do">logout</a></li>
+					<li onclick="showReservation()"><a href=#>예약 정보</a>
+						<!--  <a href="/showReservation.do">예약정보</a>  <input type="submit" value="예약 정보">
+						<form action="/showReservation.do" style='height:2.25rem'>
+						<input type="submit" value="예약 정보">
+						</form>-->
 
-    <form action="/showReservation.do" style="width: 94px;">
-        <input type="submit" value="예약 정보">
-    </form>
 
-    <button onclick="showTable()">테이블 보기</button>
+					</li>
+					<li onclick="showTable()"><a href=#>테이블보기</a></li>
+					<li onclick="addTable()"><a href=#>테이블 추가</a></li>
+					<li onclick="showReservationByMonth()"><a href=#>월별추이</a></li>
+				</ul>
+			</nav>
+		</header>
 
-    <button onclick="addTable()">테이블 추가</button>
 
-    <button onclick="showReservationByMonth()">월별 추이</button>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<p class="copyright">
+				&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.
+			</p>
+		</footer>
+
+	</div>
+
+	<!-- BG -->
+	<div id="bg"></div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
 </body>
 </html>
