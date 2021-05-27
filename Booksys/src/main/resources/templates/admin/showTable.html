@@ -22,7 +22,11 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 
-
+<script>
+	function deleteTable() {
+		location.href="/deleteTable.do";
+	}
+</script>
 </head>
 <body class="is-preload">
 
@@ -32,7 +36,7 @@
 		<article>
 			<h2 class="major">현재 테이블 현황</h2>
 
-			<table>
+			<table border="1">
 				<thead>
 					<tr>
 						<td>테이블 번호</td>
@@ -49,8 +53,10 @@
 					</td>
 				</tr>
 			</table>
+			<!-- 
 			<button type="button" name="button" id="deleteButton"
 				onclick="location.href='/admin';">뒤로가기</button>
+				 -->
 		</article>
 
 		<!-- Footer -->
