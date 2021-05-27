@@ -47,14 +47,24 @@ function reserveClick() {
 function setReservation() {
 	reserveClick();
 }
+function showTable() {
+	//window.open("/showTableView", "a","width=400, height=300, left=100, top=50");
+	location.href = "/showTableView";
+}
+function showReservationInfo() {
+	//window.open("/showUserReservation", "a","width=400, height=300, left=100, top=50");
+	location.href = "/showUserReservation";
+}
 
-
+function goAdmin(){
+	location.href="/admin"
+}
 </script>
 
 </head>
 <body class="is-preload">
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -80,15 +90,15 @@ function setReservation() {
 				<ul>
 					<li><a href="/logOut.do">logout</a></li>
 					<li onclick="setReservation()"><a href=#>예약하기</a></li>
-					<li><a href="/showTableView";>테이블보기</a></li>
-					<li th:if="${level.equals(1)}"><a href="/admin.do">admin</a></li>
-					<li><a href="/showUserReservation">예약 수정,확인</a></li>
+					<li onclick="showTable()"><a href=#>테이블보기</a></li>
+					<li onclick="goAdmin()" th:if="${level.equals(1)}"><a href=#>admin</a></li>
+					<li onclick="showReservationInfo()"><a href=#>예약 수정,확인</a></li>
 					<li><a href="#contact">Contact</a></li>
 				</ul>
 			</nav>
 		</header>
 
-	
+
 
 		<!-- Footer -->
 		<footer id="footer">

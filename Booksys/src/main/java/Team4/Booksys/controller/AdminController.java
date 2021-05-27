@@ -1,26 +1,29 @@
 package Team4.Booksys.controller;
 
-import Team4.Booksys.VO.CustomerVO;
-import Team4.Booksys.VO.ReservationVO;
-import Team4.Booksys.VO.TableVO;
-import Team4.Booksys.VO.modefiedReservation;
-import Team4.Booksys.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import Team4.Booksys.VO.CustomerVO;
+import Team4.Booksys.VO.ReservationVO;
+import Team4.Booksys.VO.TableVO;
+import Team4.Booksys.VO.modefiedReservation;
+import Team4.Booksys.service.ReservationService;
+import Team4.Booksys.service.TableRepository;
+import Team4.Booksys.service.TableService;
+import Team4.Booksys.service.UserRepository;
+import Team4.Booksys.service.UserService;
 
 @Controller
 public class AdminController {
@@ -57,7 +60,6 @@ public class AdminController {
     public String admin(HttpSession session) {
         String id = session.getAttribute("id").toString();
         CustomerVO vo = userRepository.findById(id);
-        String msg;
         if (vo.getVal_level() == 1){
             return "/admin/admin";
         }else{
@@ -66,8 +68,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/showReservation.do", produces = "text/html; charset=UTF-8")
-    public String showReservation(HttpServletRequest request, Model model) { //¿¹¾à¸®½ºÆ® Á¶È¸°ü·Ã ÄÚµå Ãß°¡ÇÔ ¤±¤±
-        HttpSession session = request.getSession(true);//ÇöÀç ¼¼¼Ç ·Îµå
+    public String showReservation(HttpServletRequest request, Model model) { //ì˜ˆì•½ë¦¬ìŠ¤íŠ¸ ì¡°íšŒê´€ë ¨ ì½”ë“œ ì¶”ê°€í•¨ ã…ã…
+        HttpSession session = request.getSession(true);//í˜„ì¬ ì„¸ì…˜ ë¡œë“œ
         int currentOid = (int) session.getAttribute("oid");
         String currentid = (String) session.getAttribute("id");
         List<ReservationVO> list = ReservationService.getReservationList(currentOid);
@@ -99,7 +101,7 @@ public class AdminController {
         int tableNumber;
 
         if(request.getParameter("tableNumber") =="") {
-            return "<script> alert('Å×ÀÌºí ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');  location.href= 'locateAddTable.do'; </script>";
+            return "<script> alert('í…Œì´ë¸” ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');  location.href= 'locateAddTable.do'; </script>";
         }
         tableNumber = Integer.parseInt(request.getParameter("tableNumber"));
         vo.setVal_rid(tableNumber);
@@ -126,17 +128,17 @@ public class AdminController {
         int tableNumber;
 
         if(request.getParameter("tableNumber") =="") {
-            return "<script> alert('Å×ÀÌºí ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');  location.href= 'locateShowTable.do'; </script>";
+            return "<script> alert('í…Œì´ë¸” ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');  location.href= 'locateShowTable.do'; </script>";
         }
         tableNumber = Integer.parseInt(request.getParameter("tableNumber"));
-        //Å×ÀÌºíÀ» »ç¿ëÇÏ°í ÀÖ´Â ¿¹¾àÀÌ ÀÖ´Â °æ¿ì.
+        //í…Œì´ë¸”ì„ ì‚¬ìš©í•˜ê³  ìˆëŠ” ì˜ˆì•½ì´ ìˆëŠ” ê²½ìš°.
         if(ReservationService.findByTableId(tableNumber) != 0){
-            return "<script> alert('ÇöÀç ÇØ´ç Å×ÀÌºíÀ» »ç¿ëÁßÀÎ ¿¹¾àÀÌ ÀÖ½À´Ï´Ù.');  location.href= 'locateShowTable.do'; </script>";
+            return "<script> alert('í˜„ì¬ í•´ë‹¹ í…Œì´ë¸”ì„ ì‚¬ìš©ì¤‘ì¸ ì˜ˆì•½ì´ ìˆìŠµë‹ˆë‹¤.');  location.href= 'locateShowTable.do'; </script>";
         }
         //System.out.println(request.getParameter("tableNumber"));
 
         tableRepository.deleteById((long) tableNumber);
-        return "<script> alert('»èÁ¦µÇ¾ú½À´Ï´Ù.'); location.href= 'locateShowTable.do'; </script>";
+        return "<script> alert('ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.'); location.href= 'locateShowTable.do'; </script>";
         //return "<script> window.close();</script>";
     }
 
@@ -163,7 +165,7 @@ public class AdminController {
             //System.out.println(t1);
             //System.out.println(t2);
             tmp = ReservationService.countReservationByMonth(t1, t2);
-            datas.add(new data(start_year + 1900 + "³â " + (start_month + 1) + "¿ù", tmp));
+            datas.add(new data(start_year + 1900 + "ë…„ " + (start_month + 1) + "ì›”", tmp));
 
             start_month++;
             System.out.println(datas.get(i).count + "   " + datas.get(i).time);
@@ -179,4 +181,10 @@ public class AdminController {
         model.addAttribute("dataList", datas);
         return "/admin/showUserReservationByMonth";
     }
+
+    @RequestMapping(value = "/admin")
+	public String admin() {
+		return "/admin/admin";
+	}
+
 }

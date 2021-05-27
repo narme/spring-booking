@@ -1,23 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<title>테이블 보기</title>
+
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
+<link rel="stylesheet" href="assets/css/main.css" />
+
+<noscript>
+	<link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+
+
 </head>
-<body>
-<table border="1">
-    <tr>
-        <td>테이블 번호</td>
-    </tr>
-    <tr th:each="list : ${table}">
-        <td th:text="${list.getVal_number()}"></td>
-        <td>
-            <form action="/deleteTable.do" style="width: 94px;">
-                <input type="hidden" name="tableNumber" th:value="${list.getVal_oid()}" />
-                <input type="submit" value="삭제">
-            </form>
-        </td>
-    </tr>
-</table>
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<article>
+			<h2 class="major">현재 테이블 현황</h2>
+
+			<table>
+				<thead>
+					<tr>
+						<td>테이블 번호</td>
+					</tr>
+				</thead>
+				<tr th:each="list : ${table}">
+					<td th:text="${list.getVal_number()}"></td>
+					<td>
+						<form action="/deleteTable.do" style="width: 94px;">
+							<input type="hidden" name="tableNumber"
+								th:value="${list.getVal_oid()}" /> <input type="submit"
+								value="삭제">
+						</form>
+					</td>
+				</tr>
+			</table>
+			<button type="button" name="button" id="deleteButton"
+				onclick="location.href='/admin';">뒤로가기</button>
+		</article>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<p class="copyright">
+				&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.
+			</p>
+		</footer>
+
+	</div>
+	<!-- BG -->
+	<div id="bg"></div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
 </body>
 </html>
