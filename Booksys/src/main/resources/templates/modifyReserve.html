@@ -12,7 +12,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 
-<!--===============================================================================================--><!-- why... not... -->
+<!--===============================================================================================-->
+<!-- why... not... -->
 <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
 
 
@@ -28,14 +29,14 @@
 		<article>
 			<h2 class="major">예약 수정</h2>
 
-
+			<!-- 디버깅
 			<h2>modify page : 선택의 기본 값이 현재 예약의 기본값을 가지도록 구현함 //아직 백엔드부분은
 				구현안함//210526 벡엔드부분구현완료 확인해주세요</h2>
 			<h1 th:text="${userid} + '님의 예약 현황'"></h1>
 			<h1 th:text="${reserveOid} + '번 예약'"></h1>
 			<h1 th:text="${vo} + '번 예약'"></h1>
 
-			<!-- 디버깅
+			
 			<td>디버깅용임 현재예약정보</td>
 			<br>
 			<td th:text="'oid = '+${mReserv.oid}"></td>
@@ -74,13 +75,14 @@
 
 			<form action="/modifyReservation.do" method="post">
 				<div class="fields">
-
-					<input type="hidden" name="reservationoid"
-						th:value="${mReserv.oid}"> <input type="hidden"
-						name="eventoid" th:value="${mEvent.oid}">
+					<div class="field">
+						<input type="hidden" name="reservationoid"
+							th:value="${mReserv.oid}"> <input type="hidden"
+							name="eventoid" th:value="${mEvent.oid}">
+					</div>
 					<div class="field">
 						<label for="date">날짜 </label> <input id="date" name="date"
-							type="date" th:value="${mReserv.date}">
+							style="color: darkblue;" type="date" th:value="${mReserv.date}">
 					</div>
 					<div class="field">
 						<label for="time">시간</label> <select name="time" id="time">
@@ -117,33 +119,31 @@
 						</select>
 					</div>
 
+
 					<!-- 이벤트처리부분 기존에 이벤트 예약이여야만 보임 -->
-					<div th:if="${mEvent.oid}!=-1">
-						<div class="field">
-							<label for="type">이벤트 목적</label> <input id="type" name="type"
-								type="text" th:value="${mEvent.event_type}">
-						</div>
-						<div class="field">
-							<label for="song">노래신청</label> <input id="song" name="song"
-								type="text" th:value="${mEvent.event_song}">
-						</div>
-						<div class="field">
-							<label for="message">추가로 원하시는 요청사항을 적어주세요.</label>
-							<textarea name="memo" id="memo" cols="30" rows="10" autofocus
-								required wrap="hard" th:text="${mEvent.event_memo}"></textarea>
-						</div>
+					<div class="field" th:if="${mEvent.oid}!=-1">
+						<label for="type">이벤트 목적</label> <input id="type" name="type"
+							type="text" th:value="${mEvent.event_type}">
 					</div>
+					<div class="field" th:if="${mEvent.oid}!=-1">
+						<label for="song">노래신청</label> <input id="song" name="song"
+							type="text" th:value="${mEvent.event_song}">
 					</div>
-					<!-- 이벤트처리부분끝 -->
-					<ul class="actions">
-						<li><input type="submit" value="예약 수정 완료" class="primary" /></li>
-						<!-- 홈으로 가게 할지 아니면 예약 보는 화면으로 가게 할지 선택.. -->
-						<li><input type="button" value="홈으로 가기"
-							onclick="location.href='/home';" /></li>
-					</ul>
+					<div class="field" th:if="${mEvent.oid}!=-1">
+						<label for="message">추가로 원하시는 요청사항을 적어주세요.</label>
+						<textarea name="memo" id="memo" cols="30" rows="10" autofocus
+							required wrap="hard" th:text="${mEvent.event_memo}"></textarea>
+					</div>
 
+				</div>
+				<!-- 이벤트처리부분끝 -->
 
-					<input type="submit" value="예약 수정 완료">
+				<ul class="actions">
+					<li><input type="submit" value="예약 수정 완료" class="primary" /></li>
+					<!-- 홈으로 가게 할지 아니면 예약 보는 화면으로 가게 할지 선택.. -->
+					<li><input type="button" value="홈으로 가기"
+						onclick="location.href='/home';" /></li>
+				</ul>
 			</form>
 		</article>
 

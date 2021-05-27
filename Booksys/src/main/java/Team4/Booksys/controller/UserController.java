@@ -73,7 +73,7 @@ public class UserController {
 	
 	@ResponseBody // return to body
 	@PostMapping(value = "/signIn.do", produces = "text/html; charset=UTF-8")
-	public String signIn(HttpSession session, HttpServletRequest req) {
+	public String signIn(HttpSession session, HttpServletRequest req,Model model) {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("password");
 		/*
@@ -82,11 +82,11 @@ public class UserController {
 		}
 		if (pw.equals("")) {
 			return "<script> alert('비밀번호를 입력하세요');  location.href= '/index'; </script>";
-		}*/
+		}
 		if (userRepository.findById(id) == null) {
 			return "<script> alert('없는 아이디 입니다.');  location.href= '/index'; </script>";
 			// return "index";
-		}
+		}*/
 
 		if (userService.loginCheck(id, pw)) {
 			System.out.println("\n" + id + "님 login");
@@ -106,7 +106,8 @@ public class UserController {
 			session.setAttribute("level", vo.getVal_level());
 			
 			//if (vo.getVal_level() == 0)
-			return "<script> alert('로그인 되셨습니다!');  location.href= '/home'; </script>";
+			//return "<script> alert('로그인 되셨습니다!');  location.href= '/home'; </script>";
+			return "<script>location.href= '/home'; </script>";
 
 		} else {
 			System.out.println("False");
