@@ -15,25 +15,19 @@
 
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
- 
- <link rel="stylesheet" href="assets/css/main.css" />
+
+<link rel="stylesheet" href="assets/css/main.css" />
 
 <script type="text/javascript">
 
+/*스크립트 에러나서 수정했습니다-juhee*/
 function getModify() {
-	  
-	  const genderNodeList = document.getElementsByName('radiotext');
-	  
-	  genderNodeList.forEach((node) => {
-	    if(node.checked)  {
-	    	//alert(node.value);
-	    	//return node.value;
-	    	//oid=node.value;
-	    	location.href="/callModifyReserve/"+node.value;
-	    }
-	    })
-}
+	  const oid = event.target.id;
+	  document.getElementById("oid").value=oid;
+	 }
 	
+
+
 function getDelete() {
 	  
 	  const genderNodeList = document.getElementsByName('radiotext');
@@ -99,8 +93,8 @@ function getDelete() {
 				</thead>
 				<tr th:each="list : ${list}">
 					<td><input type="radio" th:id="${list.oid}" name="radiotext"
-						th:value=${list.oid}> <!--  lable 삭제 하면 에러남.. --> <label
-						th:for="${list.oid}">✔</label></td>
+						th:value=${list.oid} onclick="getModify(event)"> <!--  lable 삭제 하면 에러남.. -->
+						<label th:for="${list.oid}"> ✔ </label></td>
 					<td th:text="${list.oid}"></td>
 					<td th:text="${list.start_time}"></td>
 					<td th:text="${list.tid}"></td>
@@ -109,13 +103,16 @@ function getDelete() {
 				</tr>
 
 			</table>
-			<button type="button" name="button" id="modifyButton"
-				onclick="getModify()">수정</button>
-			<button type="button" name="button" id="deleteButton"
-				onclick="getDelete()">삭제</button>
-			<button type="button" name="button" id="deleteButton"
-				onclick="location.href='/home';">뒤로가기</button>
+			<form action="/callModifyReserve">
+				<input id="oid" name="oid" type="hidden"> <input
+					type="submit" name="submit" id="modifyButton" value="수정">
+				<button type="button" name="button" id="deleteButton"
+					onclick="getDelete()">삭제</button>
 
+				<button type="button" name="button" id="deleteButton"
+					onclick="location.href='/home';">뒤로가기</button>
+
+			</form>
 		</article>
 
 		<!-- Footer -->

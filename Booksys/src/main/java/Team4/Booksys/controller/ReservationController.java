@@ -1,5 +1,7 @@
 package Team4.Booksys.controller;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -46,6 +48,7 @@ public class ReservationController {
 	@Autowired
 	ReservationRepository ReservationRepository;
 
+	/* 아래 걸로 수정헀습니다.
 	@RequestMapping(value = "/callModifyReserve/{oid}", produces = "text/html; charset=UTF-8")
 	public String modifyReserve(@PathVariable int oid,HttpSession session,Model model) { //아직 작업중인 코드 leewk
 		model.addAttribute("userid", session.getAttribute("id"));
@@ -77,13 +80,51 @@ public class ReservationController {
 		return "modifyReserve";
 		
 	}
-	
+	*/
 	/*
 	@RequestMapping(value="/modifyReserve")
 	public String modify() {
 		return "modifyReserve";
 	}
 	*/
+	
+	@RequestMapping(value = "/callModifyReserve")
+	public String modifyReserve(HttpSession session,Model model,ServletRequest req) { //아직 작업중인 코드 leewk
+		
+		/*수정부분- juhee*/
+		int oid=Integer.parseInt(req.getParameter("oid"));
+		System.out.print("oid"+oid);
+		
+		
+		model.addAttribute("reserveOid", oid);
+		model.addAttribute("userid", session.getAttribute("id"));
+		
+		
+		ReservationVO vo=ReservationRepository.findByOid(oid);
+		modefiedReservationDivideDateAndTime mReservdt = new modefiedReservationDivideDateAndTime();
+		mReservdt.setVal_oid(vo.getVal_oid());
+		mReservdt.setVal_people_number(vo.getVal_people_number());
+		mReservdt.setVal_rank(vo.getVal_rank());
+		mReservdt.setVal_start_time(vo.getVal_start_time());
+		mReservdt.setVal_tid(vo.getVal_tid());
+
+		EventVO evo = EventService.findbyRid(oid);
+		modefiedEvent mEvent = new modefiedEvent();
+		if(evo != null) {
+			mEvent.setVal_oid(evo.getVal_oid());
+			mEvent.setVal_rid(evo.getVal_rid());
+			mEvent.setVal_event_type(evo.getVal_event_type());
+			mEvent.setVal_event_song(evo.getVal_event_song());
+			mEvent.setVal_event_memo(evo.getVal_event_memo());
+		}
+		
+		model.addAttribute("vo",vo.getVal_start_time());
+		model.addAttribute("mReserv",mReservdt);
+		model.addAttribute("mEvent",mEvent);
+		//mEvent.oid가 -1이면 이벤트예약이 존재하지 않음을 의미함
+		
+		return "modifyReserve";
+	}
 	
 	
 	@ResponseBody
