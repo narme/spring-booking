@@ -23,7 +23,7 @@ public class ReservationService {
     public int findByTableId(int uid){
         return Repository.numberOfReservationByTableId(uid);
     }
-
+	public List<ReservationVO> getReservationListAll(){return Repository.findAll();}
     public int countReservationByMonth(String t1, String t2){
         return Repository.numberOfReservationByTime(t1, t2);
     }
@@ -91,4 +91,6 @@ public class ReservationService {
     public void updateReservationPeopleNumber(int people_num, int oid) {
     	Repository.updateReservationPeopleNumber(people_num, oid);
     }
+
+    public int countReservationByUser(int oid){ return Repository.countReservationByUser(oid); }
 }

@@ -31,7 +31,8 @@ public class UserService {
 		else
 			return false;
 	}
-    
+    public CustomerVO isExist(int uid){return userRepository.findByUid(uid);}
+	public int increaseNoShowCount(int uid){return userRepository.increaseNoShowCount(uid);}
 }
 
 

@@ -1,76 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>예약정보</title>
+    <meta charset="utf-8">
+    <title>예약정보</title>
+    <style>
+      td {
+        text-align: center;
+      }
 
-<!--
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+    </style>
 
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no"/>
 
-<!--===============================================================================================-->
-<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
 
-<link rel="stylesheet" href="assets/css/main.css" />
-
-<noscript>
-	<link rel="stylesheet" href="assets/css/noscript.css" />
-</noscript>
-
-
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
 </head>
 <body class="is-preload">
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+<!-- Wrapper -->
+<div id="wrapper">
 
-		<article>
-			<h2 class="major">현재 예약 현황</h2>
+    <article>
+        <h1>예약 현황</h1>
 
-			<table>
-				<thead>
-					<tr>
-						<td>고유번호</td>
-						<td>날짜</td>
-						<td>테이블번호</td>
-						<td>인원수</td>
-						<td>앞 대기열</td>
-					</tr>
-				</thead>
+        <table border="1">
+            <tr>
+                <td>고유번호</td>
+                <td>날짜</td>
+                <td>테이블번호</td>
+                <td>인원수</td>
+                <td>앞 대기열</td>
+                <td>노쇼 등록</td>
+            </tr>
+            <tr th:each="list : ${list}">
+                <td th:text="${list.getVal_oid()}"></td>
+                <td th:text="${list.getVal_start_time()}"></td>
+                <td th:text="${list.getVal_tid()}"></td>
+                <td th:text="${list.getVal_people_number()}"></td>
+                <td th:text="${list.getVal_rank()}"></td>
+                <td>
+                    <form action="/increaseNoShow.do" style="width: 94px;">
+                        <input type="hidden" name="uid"
+                               th:value="${list.getVal_uid()}"/> <input type="submit" value="노쇼">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </article>
+    <!-- Footer -->
+    <footer id="footer">
+        <p class="copyright">
+            &copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.
+        </p>
+    </footer>
+</div>
+<!-- BG -->
+<div id="bg"></div>
 
-				<tr th:each="list : ${list}">
-					<td th:text="${list.oid}"></td>
-					<td th:text="${list.start_time}"></td>
-					<td th:text="${list.tid}"></td>
-					<td th:text="${list.people_number}"></td>
-					<td th:text="${list.rank}"></td>
-				</tr>
-			</table>
-			<button type="button" name="button" id="deleteButton"
-				onclick="location.href='/admin';">뒤로가기</button>
-		</article>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<p class="copyright">
-				&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.
-			</p>
-		</footer>
-
-	</div>
-	<!-- BG -->
-	<div id="bg"></div>
-
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

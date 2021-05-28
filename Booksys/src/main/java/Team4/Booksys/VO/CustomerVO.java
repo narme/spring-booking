@@ -37,9 +37,7 @@ public class CustomerVO {
     public void setVal_level(int val) {
         this.level = val;
     }
-    public void setVal_noshow(int val) {
-        this.noshow = val;
-    }
+    public void setVal_noshow(int val) { this.noshow = val; }
     
     public String getVal_id() {
         return this.id;

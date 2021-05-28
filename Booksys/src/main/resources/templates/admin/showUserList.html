@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>테이블 보기</title>
+    <meta charset="utf-8">
+    <title>회원목록</title>
     <style>
       td {
         text-align: center;
       }
 
+
+
     </style>
-    <!--
-        Dimension by HTML5 UP
-        html5up.net | @ajlkn
-        Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-    -->
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1, user-scalable=no"/>
 
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-
     <link rel="stylesheet" href="assets/css/main.css"/>
 
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css"/>
     </noscript>
-
-    <script>
-	function deleteTable() {
-		location.href="/deleteTable.do";
-	}
-
-    </script>
 </head>
 <body class="is-preload">
 
@@ -40,38 +29,34 @@
 <div id="wrapper">
 
     <article>
-        <h2 class="major">현재 테이블 현황</h2>
+        <h1>회원 목록</h1>
 
         <table border="1">
-            <thead>
             <tr>
-                <td>테이블 번호</td>
+                <td>고유번호</td>
+                <td>이름</td>
+                <td>아이디</td>
+                <td>전화번호</td>
+                <td>예약 수</td>
+                <td>노쇼 수</td>
             </tr>
-            </thead>
-            <tr th:each="list : ${table}">
-                <td th:text="${list.getVal_number()}"></td>
-                <td>
-                    <form action="/deleteTable.do" style="width: 94px;">
-                        <input type="hidden" name="tableNumber"
-                               th:value="${list.getVal_oid()}"/> <input type="submit"
-                                                                        value="삭제">
-                    </form>
-                </td>
+
+            <tr th:each="user,stat : ${userList}">
+                <td th:text="${user.getVal_oid()}"></td>
+                <td th:text="${user.getVal_name()}"></td>
+                <td th:text="${user.getVal_id()}"></td>
+                <td th:text="${user.getVal_phonenumber()}"></td>
+                <td th:text="${reservationCountList[stat  .index]}"></td>
+                <td th:text="${user.getVal_noshow()}"></td>
             </tr>
         </table>
-        <!--
-        <button type="button" name="button" id="deleteButton"
-            onclick="location.href='/admin';">뒤로가기</button>
-             -->
     </article>
-
     <!-- Footer -->
     <footer id="footer">
         <p class="copyright">
             &copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.
         </p>
     </footer>
-
 </div>
 <!-- BG -->
 <div id="bg"></div>

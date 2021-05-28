@@ -70,28 +70,31 @@ public class AdminController {
     @RequestMapping(value = "/showReservation.do", produces = "text/html; charset=UTF-8")
     public String showReservation(HttpServletRequest request, Model model) { //예약리스트 조회관련 코드 추가함 ㅁㅁ
         HttpSession session = request.getSession(true);//현재 세션 로드
-        int currentOid = (int) session.getAttribute("oid");
-        String currentid = (String) session.getAttribute("id");
-        List<ReservationVO> list = ReservationService.getReservationList(currentOid);
-        ArrayList<modefiedReservation> list2 = new ArrayList<modefiedReservation>();
-        for (ReservationVO vo : list) {
-            int oid = vo.getVal_oid();
-            int people_number = vo.getVal_people_number();
-            int rank = vo.getVal_rank();
-            int tid = vo.getVal_tid();
-            String start_time = vo.getVal_start_time();
-            modefiedReservation mReserv = new modefiedReservation();
-            mReserv.setVal_oid(oid);
-            mReserv.setVal_people_number(people_number);
-            mReserv.setVal_rank(rank);
-            mReserv.setVal_start_time(start_time);
-            mReserv.setVal_tid(tid);
-            list2.add(mReserv);
-        }
-        model.addAttribute("list", list2);
-        model.addAttribute("userid", currentid);
+
+        List<ReservationVO> list = ReservationService.getReservationListAll();
+
+        model.addAttribute("list", list);
         //window.open("/admin/showUserReservation", "a","width=400, height=300, left=100, top=50");
         return "/admin/showUserReservation";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/increaseNoShow.do", produces = "text/html; charset=utf-8")
+    public String increaseNoShow(HttpServletRequest request){
+        int uid;
+
+        if(request.getParameter("uid") =="") {
+            return "<script> alert('회원 정보를 받아오지 못했습니다.');  location.href= 'showReservation.do'; </script>";
+        }
+        uid = Integer.parseInt(request.getParameter("uid"));
+        //테이블을 사용하고 있는 예약이 있는 경우.
+        if(userService.isExist(uid) == null){
+            return "<script> alert('회원 정보가 존재하지 않습니다.'); location.href= 'showReservation.do'; </script>";
+        }
+
+        userService.increaseNoShowCount(uid);
+        return "<script> alert('노쇼로 등록했습니다.'); location.href= 'showReservation.do'; </script>";
+        //return "<script> window.close();</script>";
     }
 
     @ResponseBody
@@ -149,8 +152,8 @@ public class AdminController {
 
         Date current = new Date();
         Calendar cal = Calendar.getInstance();
-        int start_year = 2020 - 1900;
-        int start_month = 5 - 1; //
+        int start_year = 2021 - 1900;
+        int start_month = 1 - 1; //
         int tmp;
         SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd 00:00:00");
         String t1, t2;
@@ -165,7 +168,7 @@ public class AdminController {
             //System.out.println(t1);
             //System.out.println(t2);
             tmp = ReservationService.countReservationByMonth(t1, t2);
-            datas.add(new data(start_year + 1900 + "년 " + (start_month + 1) + "월", tmp));
+            datas.add(new data(start_year + 1900 + "-" + (start_month + 1), tmp));
 
             start_month++;
             System.out.println(datas.get(i).count + "   " + datas.get(i).time);
@@ -180,6 +183,32 @@ public class AdminController {
         }
         model.addAttribute("dataList", datas);
         return "/admin/showUserReservationByMonth";
+    }
+
+    @RequestMapping(value = "/showUserList.do")
+    public String showUserList(Model model){
+        List<CustomerVO> userList = new ArrayList<>();
+        List<Integer> reservationCountList = new ArrayList<>();
+        userList = userRepository.findAll();
+
+        //admin (level이 0이 아닌 계정 제거)
+        for(CustomerVO i : new ArrayList<CustomerVO>(userList)){
+            if(i.getVal_level() != 0)userList.remove(i);
+        }
+
+
+        //회원별 예약 횟수
+        Integer count;
+        for(CustomerVO i : userList){
+            System.out.println(i.getVal_id());
+            count = ReservationService.countReservationByUser(i.getVal_oid());
+            reservationCountList.add(count);
+            System.out.println(count);
+        }
+
+        model.addAttribute("userList", userList);
+        model.addAttribute("reservationCountList", reservationCountList);
+        return "/admin/showUserList";
     }
 
     @RequestMapping(value = "/admin")

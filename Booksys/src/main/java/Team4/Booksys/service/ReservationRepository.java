@@ -63,5 +63,6 @@ public interface ReservationRepository extends JpaRepository<ReservationVO, Long
 	@Query("DELETE FROM RESERVATION WHERE oid=?1")
 	public void deleteReservationbyoid(int oid);
 
-
+	@Query("SELECT COUNT(*) FROM RESERVATION WHERE uid=?1")
+	public int countReservationByUser(int oid);
 }
