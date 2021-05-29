@@ -27,9 +27,10 @@
 <div id="wrapper">
 
     <article>
-        <h1>예약 현황</h1>
+        <h2 class="major">예약 현황</h2>
 
         <table border="1">
+        <thead>
             <tr>
                 <td>고유번호</td>
                 <td>날짜</td>
@@ -38,6 +39,7 @@
                 <td>앞 대기열</td>
                 <td>노쇼 등록</td>
             </tr>
+            </thead>
             <tr th:each="list : ${list}">
                 <td th:text="${list.getVal_oid()}"></td>
                 <td th:text="${list.getVal_start_time()}"></td>
