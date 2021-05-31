@@ -19,6 +19,35 @@
 <!-- Style -->
 <link rel="stylesheet" href="css/style.css">
 
+<script type="text/javascript">
+	function getCheck() {
+		const pass = document.getElementById("password").value;
+		const repass = document.getElementById("re-password").value;
+		let result = '';
+		var bodyTag = document.getElementById("result");
+		if (pass === repass) {
+			result = "비밀번호가 일치합니다.";
+			bodyTag.style.color = "green";
+		} else {
+			result = "비밀번호가 일치하지 않습니다";
+			bodyTag.style.color = "red";
+		}
+		document.getElementById('result').innerText = result;
+	}
+
+	function getCheckPolicy(event) {
+		let result = '';
+		var bodyTag = document.getElementById("checkpolicy");
+		if (!event.target.checked) {
+			result = "체크를 하지 않으시면 회원가입이 불가능합니다.";
+			bodyTag.style.color = "red";
+		}
+
+		bodyTag.innerText = result;
+	}
+</script>
+
+
 <title>join</title>
 </head>
 <body>
@@ -52,7 +81,7 @@
 									<div class="form-group first">
 										<label for="password">PW: </label> <input id="password"
 											class="form-control" name="password" type="password"
-											placeholder="password">
+											onkeyup='getCheck()' placeholder="password">
 									</div>
 								</div>
 							</div>
@@ -62,7 +91,9 @@
 									<div class="form-group first">
 										<label for="re-password">RePW: </label> <input
 											id="re-password" class="form-control" name="re-password"
-											type="password" placeholder="re-password">
+											type="password" placeholder="re-password"
+											onkeyup='getCheck()'>
+										<div id='result'></div>
 									</div>
 								</div>
 							</div>
@@ -92,16 +123,19 @@
 										class="caption">Creating an account means you're okay
 											with our <a href="#">Terms and Conditions</a> and our <a
 											href="#">Privacy Policy</a>.
-									</span> <input type="checkbox" checked="checked" />
-										<div class="control__indicator"></div> </label>
+									</span> <input type="checkbox" name='checckpolicy'
+										onclick="getCheckPolicy(event)" checked="checked">
+										<div class="control__indicator"></div>
+										<div id="checkpolicy"></div></label>
+
 								</div>
 							</div>
 
 
 
-							<input type="submit" value="go" class="btn px-5 btn-primary">
+							<input type="submit" value="회원가입" class="btn px-5 btn-primary">
 							<input type="button" style="text-align: center"
-								onclick="location.href='/index';" value="main으로"
+								onclick="location.href='/index';" value="홈으로"
 								class="btn px-5 btn-primary">
 						</form>
 
