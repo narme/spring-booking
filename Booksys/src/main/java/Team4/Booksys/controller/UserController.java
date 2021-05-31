@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,9 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 
 	@ResponseBody // return to body
 	@RequestMapping(value = "/joinUs.do", method = RequestMethod.POST)
@@ -44,7 +48,14 @@ public class UserController {
 			System.out.println("중복아이디 감지");
 			return "<script> alert('중복된 아이디 입니다.');  location.href= '/join'; </script>";
 		}
-		vo.setVal_password(req.getParameter("password"));
+		String password = req.getParameter("password");
+		String encoded_password = passwordEncoder.encode(password);
+		
+		//암호화안함
+		//vo.setVal_password(password);
+		//암호화함
+		vo.setVal_password(encoded_password);
+		
 		vo.setVal_name(req.getParameter("name"));
 		vo.setVal_phonenumber(req.getParameter("phonenumber"));
 		System.out.print(vo.getVal_password());
