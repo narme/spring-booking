@@ -1,6 +1,7 @@
 package Team4.Booksys.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import Team4.Booksys.VO.CustomerVO;
@@ -10,7 +11,8 @@ public class UserService {
  
     @Autowired
     UserRepository userRepository;
- 
+    @Autowired
+    PasswordEncoder passwordEncoder;
     public void joinUser(CustomerVO vo){
     	System.out.println("회원가입 요청 들어옴");
         userRepository.save(vo);
@@ -24,7 +26,7 @@ public class UserService {
 		
 		CustomerVO vo = userRepository.findById(id);
 		
-		if (vo.getVal_password().contentEquals(pw)) {
+		if (passwordEncoder.matches(pw, vo.getVal_password())) {
 			return true;
 		}
 
