@@ -38,10 +38,15 @@
 							id="date" name="date" type="date">
 					</div>
 					<script>
-						let today = new Date().toISOString().substring(0, 10);
-						document.getElementById('date').value = today;
-						document.getElementById('date').setAttribute("min",
-								today);
+						let date = new Date();
+						date.setDate(date.getDate() + 1);
+						let today = date.toISOString().substring(0, 10);
+						document.getElementById('date').value = today
+						document.getElementById('date').setAttribute("min",today);
+						//3주가 예약
+						date.setDate(date.getDate() + 20);
+						let maxday = date.toISOString().substring(0, 10);
+						document.getElementById('date').setAttribute("max",maxday);
 					</script>
 					<div class="field">
 						<label for="time">시간</label> <select name="time" id="time">
