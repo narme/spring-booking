@@ -231,8 +231,8 @@ public class UserController {
 
 	@RequestMapping(value = "/addReservation")
 	public String addReservation(HttpServletRequest request, ReservationVO vo, Model model) {
-
 		HttpSession session = request.getSession(true);// 현재 세션 로드
+		if(session.getAttribute("id") == null)return "/index";
 		vo.setVal_uid((int) session.getAttribute("oid"));// 세션의 oid값 가져오기
 		vo.setVal_people_number(Integer.parseInt(request.getParameter("num_people")));// 인원수 가져오기
 
@@ -276,6 +276,7 @@ public class UserController {
 	public String addReservationEvent(HttpServletRequest request, ReservationVO vo, EventVO evo, Model model) {
 
 		HttpSession session = request.getSession(true);// 현재 세션 로드
+		if(session.getAttribute("id") == null)return "/index";
 		vo.setVal_uid((int) session.getAttribute("oid"));// 세션의 oid값 가져오기
 		vo.setVal_people_number(Integer.parseInt(request.getParameter("num_people")));// 인원수 가져오기
 

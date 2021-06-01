@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import Team4.Booksys.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,7 @@ import Team4.Booksys.VO.EventVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedEvent;
 import Team4.Booksys.VO.modefiedReservationDivideDateAndTime;
-import Team4.Booksys.service.EventService;
-import Team4.Booksys.service.ReservationRepository;
-import Team4.Booksys.service.ReservationService;
-import Team4.Booksys.service.TableService;
+
 @Controller
 public class ReservationController {
 	@Autowired
@@ -28,7 +26,9 @@ public class ReservationController {
 	EventService EventService;
 	@Autowired
 	TableService TableService;
-	
+	@Autowired
+	UserRepository userRepository;
+
 	@ResponseBody
 	@RequestMapping(value = "/cancleReservation.do")
 	public String cancleReservation(HttpServletRequest request, Model model) {
@@ -94,13 +94,15 @@ public class ReservationController {
 		/*수정부분- juhee*/
 		int oid=Integer.parseInt(req.getParameter("oid"));
 		System.out.print("oid"+oid);
-		
+		if(session.getAttribute("id") == null)return "/index";
 		
 		model.addAttribute("reserveOid", oid);
 		model.addAttribute("userid", session.getAttribute("id"));
 		
 		
 		ReservationVO vo=ReservationRepository.findByOid(oid);
+		if(!session.getAttribute("id").equals(userRepository.findByUid(vo.getVal_uid()).getVal_id()))return "/index";
+
 		modefiedReservationDivideDateAndTime mReservdt = new modefiedReservationDivideDateAndTime();
 		mReservdt.setVal_oid(vo.getVal_oid());
 		mReservdt.setVal_people_number(vo.getVal_people_number());
@@ -142,9 +144,13 @@ public class ReservationController {
 		//song
 		//memo
 		//
+		if(session.getAttribute("id") == null)return "/index";
+
 		int reserv_oid = Integer.parseInt(request.getParameter("reservationoid"));
 		ReservationVO cur_reserv = ReservationService.findByOid(reserv_oid);
-		
+
+
+
 		String input_date = request.getParameter("date");// 날짜 가져오기
 		String input_time = request.getParameter("time");// 시간 가져오기
 		String input_datetime = input_date + " " + input_time;

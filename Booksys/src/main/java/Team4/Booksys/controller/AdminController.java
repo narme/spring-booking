@@ -1,10 +1,7 @@
 package Team4.Booksys.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -56,14 +53,18 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/admin.do", produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "/admin", produces = "text/html; charset=UTF-8")
     public String admin(HttpSession session) {
+        if(session.getAttribute("id") == null)return "/index";
         String id = session.getAttribute("id").toString();
+        System.out.println(id);
+
         CustomerVO vo = userRepository.findById(id);
+
         if (vo.getVal_level() == 1){
             return "/admin/admin";
         }else{
-            return "/home";
+            return "/index";
         }
     }
 
@@ -72,6 +73,7 @@ public class AdminController {
         HttpSession session = request.getSession(true);//현재 세션 로드
 
         List<ReservationVO> list = ReservationService.getReservationListAll();
+        Collections.reverse(list);
 
         model.addAttribute("list", list);
         //window.open("/admin/showUserReservation", "a","width=400, height=300, left=100, top=50");
