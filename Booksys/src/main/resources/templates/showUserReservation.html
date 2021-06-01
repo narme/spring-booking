@@ -51,12 +51,16 @@ function getDelete() {
 	    		
 	    		  if (result.isConfirmed) {
 	    			  //삭제 부분  
-	    			  location.href="/callDeleteReserve/"+node.value;
+	    			  setTimeout(function(){
+	    				  location.href="/callDeleteReserve/"+node.value;
+	    			  },2000);
+	    	
 	    		    	Swal.fire(
 	    		    		'Deleted',
 	  	    		      'Your reservation has been deleted.',
 	  	    		      'success'
 	   	    		  	)
+	   	    		  	
 	    		     
 	    		  }
 	    		})
@@ -65,6 +69,20 @@ function getDelete() {
 }
 </script>
 
+<style>
+
+input[type="checkbox"]:disabled+label:before, input[type="radio"]:disabled+label:before
+	{
+	background: #aaaeb5;
+	border-color: #aaaeb5;
+}
+
+
+input[type="checkbox"]:disabled, input[type="radio"]:disabled {
+	background: #aaaeb5;
+	border-color: #aaaeb5;
+}
+</style>
 
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
@@ -136,8 +154,7 @@ function getDelete() {
 	
 	 let list = new Array();
 	 var today = new Date();
-	$("#test").attr("disabled", true);
-	 
+	
      /*[# th:each="list : ${list}"]*/
    var oid=/*[[${list.oid}]]*/null;
 	var oidDate=/*[[${list.start_time}]]*/null;
@@ -145,10 +162,12 @@ function getDelete() {
 	
 	//alert("date   "+typeof(date)+"today   "+typeof(today));
 	
-	if (date.getTime()<today.getTime()){
+	if (date.getTime()<=today.getTime()){
 		//alert(oid+"    \n"+today+oidDate);
 		//alert("true");
 		$("#"+oid).attr("disabled", true); 
+		 
+
 	}
 	else{
 		//alert("false");
