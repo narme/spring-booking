@@ -39,7 +39,7 @@
 		let result = '';
 		var bodyTag = document.getElementById("checkpolicy");
 		if (!event.target.checked) {
-			result = "체크를 하지 않으시면 회원가입이 불가능합니다.";
+			result = "동의하지 않으시면 회원가입이 불가능합니다.";
 			bodyTag.style.color = "red";
 		}
 
@@ -123,7 +123,7 @@
 										class="caption">Creating an account means you're okay
 											with our <a href="#">Terms and Conditions</a> and our <a
 											href="#">Privacy Policy</a>.
-									</span> <input type="checkbox" name='checckpolicy'
+									</span> <input type="checkbox" name='checckpolicy' id='checckpolicy'
 										onclick="getCheckPolicy(event)" checked="checked">
 										<div class="control__indicator"></div>
 										<div id="checkpolicy"></div></label>

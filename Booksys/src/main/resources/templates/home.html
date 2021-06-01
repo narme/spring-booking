@@ -78,11 +78,11 @@ function goAdmin(){
 				<div class="inner">
 					<h1>RESTAURENT</h1>
 					<h3 th:text="${userid} + '님 반갑습니다'"></h3>
+					<p>We will treat you to the best meal with all our heart.
+						Welcome to Team 4's restaurant.</p>
 					<p>
-						A fully responsive site template designed by <a
-							href="https://html5up.net">HTML5 UP</a> and released<br /> for
-						free under the <a href="https://html5up.net/license">Creative
-							Commons</a> license.
+						If you want to make a reservation, please click Make a <a
+							href="/noEventReservation">reservation.</a>
 					</p>
 				</div>
 			</div>
@@ -92,7 +92,7 @@ function goAdmin(){
 					<li onclick="setReservation()"><a href=#>예약하기</a></li>
 					<!-- <li onclick="showTable()"><a href=#>테이블보기</a></li> -->
 					<li onclick="goAdmin()" th:if="${level.equals(1)}"><a href=#>admin</a></li>
-					<li onclick="showReservationInfo()"><a href=#>예약 수정,확인</a></li>
+					<li onclick="showReservationInfo()"><a href=#>예약 수정</a></li>
 					<li><a href="#contact">Contact</a></li>
 				</ul>
 			</nav>
