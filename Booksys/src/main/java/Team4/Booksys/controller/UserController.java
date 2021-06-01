@@ -37,7 +37,6 @@ public class UserController {
 	UserRepository userRepository;
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
 
 	@ResponseBody // return to body
 	@RequestMapping(value = "/joinUs.do", method = RequestMethod.POST)
@@ -50,12 +49,12 @@ public class UserController {
 		}
 		String password = req.getParameter("password");
 		String encoded_password = passwordEncoder.encode(password);
-		
-		//암호화안함
-		//vo.setVal_password(password);
-		//암호화함
+
+		// 암호화안함
+		// vo.setVal_password(password);
+		// 암호화함
 		vo.setVal_password(encoded_password);
-		
+
 		vo.setVal_name(req.getParameter("name"));
 		vo.setVal_phonenumber(req.getParameter("phonenumber"));
 		System.out.print(vo.getVal_password());
@@ -63,6 +62,12 @@ public class UserController {
 		if (vo.getVal_id().equals("") || vo.getVal_name().equals("") || vo.getVal_password().equals("")
 				|| vo.getVal_phonenumber().equals(""))
 			return "<script> alert('정보를 모두 입력해주세요.');  location.href= '/join'; </script>";
+		
+		if (!req.getParameter("re-password").contentEquals(req.getParameter("password")))
+			return "<script> alert('두 비밀번호가 다릅니다');  location.href= '/join'; </script>";
+		
+		if (req.getParameter("checckpolicy") == null)
+			return "<script> alert('보안정책에 동의해 주셔야 회원가입이 가능합니다.');  location.href= '/join'; </script>";
 
 		/* 끝 */
 
@@ -232,7 +237,8 @@ public class UserController {
 	@RequestMapping(value = "/addReservation")
 	public String addReservation(HttpServletRequest request, ReservationVO vo, Model model) {
 		HttpSession session = request.getSession(true);// 현재 세션 로드
-		if(session.getAttribute("id") == null)return "/index";
+		if (session.getAttribute("id") == null)
+			return "/index";
 		vo.setVal_uid((int) session.getAttribute("oid"));// 세션의 oid값 가져오기
 		vo.setVal_people_number(Integer.parseInt(request.getParameter("num_people")));// 인원수 가져오기
 
@@ -276,7 +282,8 @@ public class UserController {
 	public String addReservationEvent(HttpServletRequest request, ReservationVO vo, EventVO evo, Model model) {
 
 		HttpSession session = request.getSession(true);// 현재 세션 로드
-		if(session.getAttribute("id") == null)return "/index";
+		if (session.getAttribute("id") == null)
+			return "/index";
 		vo.setVal_uid((int) session.getAttribute("oid"));// 세션의 oid값 가져오기
 		vo.setVal_people_number(Integer.parseInt(request.getParameter("num_people")));// 인원수 가져오기
 

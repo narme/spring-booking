@@ -17,7 +17,8 @@
 <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
 
 <link rel="stylesheet" href="assets/css/main.css" />
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 /*스크립트 에러나서 수정했습니다-juhee*/
@@ -50,12 +51,16 @@ function getDelete() {
 	    		
 	    		  if (result.isConfirmed) {
 	    			  //삭제 부분  
-	    			  location.href="/callDeleteReserve/"+node.value;
+	    			  setTimeout(function(){
+	    				  location.href="/callDeleteReserve/"+node.value;
+	    			  },2000);
+	    	
 	    		    	Swal.fire(
 	    		    		'Deleted',
-	  	    		      'Your file has been deleted.',
+	  	    		      'Your reservation has been deleted.',
 	  	    		      'success'
 	   	    		  	)
+	   	    		  	
 	    		     
 	    		  }
 	    		})
@@ -64,6 +69,20 @@ function getDelete() {
 }
 </script>
 
+<style>
+
+input[type="checkbox"]:disabled+label:before, input[type="radio"]:disabled+label:before
+	{
+	background: #aaaeb5;
+	border-color: #aaaeb5;
+}
+
+
+input[type="checkbox"]:disabled, input[type="radio"]:disabled {
+	background: #aaaeb5;
+	border-color: #aaaeb5;
+}
+</style>
 
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
@@ -79,6 +98,7 @@ function getDelete() {
 
 		<article>
 			<h2 class="major" th:text="${userid} + '님의 예약 현황'"></h2>
+
 			<table>
 				<thead>
 					<tr>
@@ -95,14 +115,17 @@ function getDelete() {
 					<td><input type="radio" th:id="${list.oid}" name="radiotext"
 						th:value=${list.oid} onclick="getModify(event)"> <!--  lable 삭제 하면 에러남.. -->
 						<label th:for="${list.oid}"> ✔ </label></td>
+
 					<td th:text="${list.oid}"></td>
 					<td th:text="${list.start_time}"></td>
 					<td th:text="${list.tid}"></td>
 					<td th:text="${list.people_number}"></td>
 					<td th:text="${list.rank}"></td>
+
 				</tr>
 
 			</table>
+			<h4>당일 예약은 취소,수정이 불가능 합니다.</h4>
 			<form action="/callModifyReserve">
 				<input id="oid" name="oid" type="hidden"> <input
 					type="submit" name="submit" id="modifyButton" value="수정">
@@ -125,6 +148,39 @@ function getDelete() {
 	</div>
 	<!-- BG -->
 	<div id="bg"></div>
+
+	<!-- 스크립트, 오늘 이후것만 수정 가능하도록 -->
+	<script th:inline="javascript">
+	
+	 let list = new Array();
+	 var today = new Date();
+	
+     /*[# th:each="list : ${list}"]*/
+   var oid=/*[[${list.oid}]]*/null;
+	var oidDate=/*[[${list.start_time}]]*/null;
+	var date=new Date(oidDate.substr(0,10));
+	
+	//alert("date   "+typeof(date)+"today   "+typeof(today));
+	
+	if (date.getTime()<=today.getTime()){
+		//alert(oid+"    \n"+today+oidDate);
+		//alert("true");
+		$("#"+oid).attr("disabled", true); 
+		 
+
+	}
+	else{
+		//alert("false");
+		//alert(oid+"    \n"+date+"   "+today);
+		//$("#"+oid).attr("disabled", true);
+
+	}
+	
+     /*[/]*/
+
+
+	</script>
+
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>

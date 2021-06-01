@@ -1,11 +1,9 @@
 package Team4.Booksys.controller;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import Team4.Booksys.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +15,11 @@ import Team4.Booksys.VO.EventVO;
 import Team4.Booksys.VO.ReservationVO;
 import Team4.Booksys.VO.modefiedEvent;
 import Team4.Booksys.VO.modefiedReservationDivideDateAndTime;
+import Team4.Booksys.service.EventService;
+import Team4.Booksys.service.ReservationRepository;
+import Team4.Booksys.service.ReservationService;
+import Team4.Booksys.service.TableService;
+import Team4.Booksys.service.UserRepository;
 
 @Controller
 public class ReservationController {
@@ -92,6 +95,9 @@ public class ReservationController {
 	public String modifyReserve(HttpSession session,Model model,ServletRequest req) { //아직 작업중인 코드 leewk
 		
 		/*수정부분- juhee*/
+		if(req.getParameter("oid").contentEquals("")) {
+			return "redirect:/showUserReservation";
+		}
 		int oid=Integer.parseInt(req.getParameter("oid"));
 		System.out.print("oid"+oid);
 		if(session.getAttribute("id") == null)return "/index";

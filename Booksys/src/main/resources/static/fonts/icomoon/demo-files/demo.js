@@ -1,3 +1,8 @@
+/*
+	Licensed under (https://colorlib.com/wp/template/signup-form-02/)
+	by https://colorlib.com/wp/templates/
+	Free for personal and commercial use under the CCA 3.0 license
+*/
 if (!('boxShadow' in document.body.style)) {
     document.body.setAttribute('class', 'noBoxShadow');
 }

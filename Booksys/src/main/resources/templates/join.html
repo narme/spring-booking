@@ -1,5 +1,10 @@
 
 <!DOCTYPE html>
+<!--
+	Licensed under (https://colorlib.com/wp/template/signup-form-02/)
+	by https://colorlib.com/wp/templates/
+	Free for personal and commercial use under the CCA 3.0 license
+-->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -8,6 +13,10 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
 	rel="stylesheet">
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
 
 <link rel="stylesheet" href="fonts/icomoon/style.css">
 
@@ -39,7 +48,7 @@
 		let result = '';
 		var bodyTag = document.getElementById("checkpolicy");
 		if (!event.target.checked) {
-			result = "체크를 하지 않으시면 회원가입이 불가능합니다.";
+			result = "동의하지 않으시면 회원가입이 불가능합니다.";
 			bodyTag.style.color = "red";
 		}
 
@@ -123,7 +132,7 @@
 										class="caption">Creating an account means you're okay
 											with our <a href="#">Terms and Conditions</a> and our <a
 											href="#">Privacy Policy</a>.
-									</span> <input type="checkbox" name='checckpolicy'
+									</span> <input type="checkbox" name='checckpolicy' id='checckpolicy'
 										onclick="getCheckPolicy(event)" checked="checked">
 										<div class="control__indicator"></div>
 										<div id="checkpolicy"></div></label>
@@ -141,6 +150,9 @@
 
 					</div>
 				</div>
+				<span> &copy; Untitled. Design: <a
+					href="https://colorlib.com/wp/template/signup-form-02/">colorlib</a>.
+				</span>
 			</div>
 		</div>
 	</div>

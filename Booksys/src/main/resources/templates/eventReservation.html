@@ -21,6 +21,8 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 
+
+
 </head>
 <body class="is-preload">
 
@@ -32,9 +34,24 @@
 			<form action="/addReservationEvent" method="post">
 				<div class="fields">
 					<div class="field">
-						<label for="date">날짜 </label> <input style="color:darkblue;" id="date" name="date"
-							type="date">
+						<label for="date">날짜 </label> <input style="color: darkblue;"
+							id="date" name="date" type="date">
 					</div>
+					<script>
+						let date = new Date();
+						date.setDate(date.getDate() + 1);
+						let today = date.toISOString().substring(0, 10);
+						//다음날 예약가능
+						document.getElementById('date').value = today
+						//이전날짜 불가능하게
+						document.getElementById('date').setAttribute("min",
+								today);
+						//3주간 예약가능
+						date.setDate(date.getDate() + 20);
+						let maxday = date.toISOString().substring(0, 10);
+						document.getElementById('date').setAttribute("max",
+								maxday);
+					</script>
 					<div class="field">
 						<label for="time">시간</label> <select name="time" id="time">
 							<option value="11">11:00</option>
@@ -80,7 +97,8 @@
 				</div>
 				<ul class="actions">
 					<li><input type="submit" value="예약 완료" class="primary" /></li>
-					<li><input type="button" value="홈으로 가기" onclick="location.href='/home';"/></li>
+					<li><input type="button" value="홈으로 가기"
+						onclick="location.href='/home';" /></li>
 				</ul>
 			</form>
 		</article>
