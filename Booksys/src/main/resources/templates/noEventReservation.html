@@ -34,6 +34,12 @@
 						<label for="date">날짜 </label> <input style="color: darkblue;"
 							id="date" name="date" type="date">
 					</div>
+					<script>
+						let today = new Date().toISOString().substring(0, 10);
+						document.getElementById('date').value = today;
+						document.getElementById('date').setAttribute("min",
+								today);
+					</script>
 					<div class="field">
 						<label for="time">시간</label> <select name="time" id="time">
 							<option value="11">11:00</option>
