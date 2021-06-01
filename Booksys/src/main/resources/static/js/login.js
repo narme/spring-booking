@@ -1,4 +1,8 @@
-
+/*
+	Licensed under (https://colorlib.com/wp/template/login-form-v18/)
+	by https://colorlib.com/wp/templates/
+	Free for personal and commercial use under the CCA 3.0 license
+*/
 (function ($) {
     "use strict";
 
