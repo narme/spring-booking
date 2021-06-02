@@ -84,6 +84,25 @@
 						<label for="date">날짜 </label> <input id="date" name="date"
 							style="color: darkblue;" type="date" th:value="${mReserv.date}">
 					</div>
+					<script>
+						let date = new Date();
+						
+						//test용
+						//alert(date);
+						
+						date.setDate(date.getDate() + 1);
+						let today = date.toISOString().substring(0, 10);
+						//다음날 예약가능
+						document.getElementById('date').value = today
+						//이전날짜 불가능하게
+						document.getElementById('date').setAttribute("min",
+								today);
+						//3주간 예약가능
+						date.setDate(date.getDate() + 20);
+						let maxday = date.toISOString().substring(0, 10);
+						document.getElementById('date').setAttribute("max",
+								maxday);
+					</script>
 					<div class="field">
 						<label for="time">시간</label> <select name="time" id="time">
 							<option value="11" th:selected="${mReserv.time.equals('11:00')}">11:00</option>
