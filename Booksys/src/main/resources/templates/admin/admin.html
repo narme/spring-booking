@@ -44,6 +44,11 @@
 				"width=800, height=1200, left=100, top=50");
 		//location.href="/showReservation.do"
 	}
+	function showReservationAll() {
+		window.open("/showReservationAll.do", "a",
+				"width=800, height=1200, left=100, top=50");
+		//location.href="/showReservation.do"
+	}
 
 	function manageNoShow(){
 		window.open("/manageNoShow.do", "a",
@@ -80,7 +85,7 @@
             <ul>
                 <li><a href="/logOut.do">logout</a></li>
                 <li onclick="showUserList()"><a href=#>회원 목록</a></li>
-                <li onclick="showReservation()"><a href=#>예약 정보</a>
+                <li onclick="showReservationAll()"><a href=#>전체 예약 기록</a>
                     <!--  <a href="/showReservation.do">예약정보</a>  <input type="submit" value="예약 정보">
                     <form action="/showReservation.do" style='height:2.25rem'>
                     <input type="submit" value="예약 정보">
@@ -88,6 +93,7 @@
 
 
                 </li>
+                <li onclick="showReservation()"><a href=#>현재 예약 정보</a>
                 <li onclick="showTable()"><a href=#>테이블보기</a></li>
                 <li onclick="addTable()"><a href=#>테이블 추가</a></li>
                 <li onclick="showReservationByMonth()"><a href=#>월별추이</a></li>

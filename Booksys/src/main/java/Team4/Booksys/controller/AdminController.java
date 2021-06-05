@@ -57,9 +57,8 @@ public class AdminController {
     @RequestMapping(value = "/admin", produces = "text/html; charset=UTF-8")
     public String admin(HttpSession session) {
         if(session.getAttribute("id") == null)return "/index";
-        String id = session.getAttribute("id").toString();
-        System.out.println(id);
 
+        String id = session.getAttribute("id").toString();
         CustomerVO vo = userRepository.findById(id);
 
         if (vo.getVal_level() == 1){
@@ -85,14 +84,33 @@ public class AdminController {
             return compare*-1;
         }
     }
-    @RequestMapping(value = "/showReservation.do", produces = "text/html; charset=UTF-8")
-    public String showReservation(HttpServletRequest request, Model model) { //예약리스트 조회관련 코드 추가함 ㅁㅁ
+    @RequestMapping(value = "/showReservationAll.do", produces = "text/html; charset=UTF-8")
+    public String showReservationAll(HttpServletRequest request, Model model) { //예약리스트 조회관련 코드 추가함 ㅁㅁ
         HttpSession session = request.getSession(true);//현재 세션 로드
 
         List<ReservationVO> list = ReservationService.getReservationListAll();
         Collections.sort(list, new ReservationComparator());
 
         model.addAttribute("list", list);
+        //window.open("/admin/showUserReservation", "a","width=400, height=300, left=100, top=50");
+        return "/admin/showUserReservation";
+    }
+
+
+    @RequestMapping(value = "/showReservation.do", produces = "text/html; charset=UTF-8")
+    public String showReservation(HttpServletRequest request, Model model) { //예약리스트 조회관련 코드 추가함 ㅁㅁ
+        HttpSession session = request.getSession(true);//현재 세션 로드
+
+        List<ReservationVO> list = ReservationService.getReservationListAll();
+        List<ReservationVO> returnlist = new ArrayList<>();
+        Collections.sort(list, new ReservationComparator());
+        for(ReservationVO i : list){
+            if(i.getVal_isdeleted() == 0){
+                returnlist.add(i);
+            }
+        }
+
+        model.addAttribute("list", returnlist);
         //window.open("/admin/showUserReservation", "a","width=400, height=300, left=100, top=50");
         return "/admin/showUserReservation";
     }
