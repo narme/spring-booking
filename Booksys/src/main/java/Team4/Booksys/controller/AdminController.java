@@ -1,5 +1,6 @@
 package Team4.Booksys.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -67,13 +68,29 @@ public class AdminController {
             return "/index";
         }
     }
+    class ReservationComparator implements Comparator<ReservationVO> {
+        @Override
+        public int compare(ReservationVO a,ReservationVO b){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date day1 = null;
+            Date day2 = null;
+            try {
+                day1 = dateFormat.parse(a.getVal_start_time());
+                day2 = dateFormat.parse(b.getVal_start_time());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
+            int compare = day1.compareTo(day2);
+            return compare*-1;
+        }
+    }
     @RequestMapping(value = "/showReservation.do", produces = "text/html; charset=UTF-8")
     public String showReservation(HttpServletRequest request, Model model) { //예약리스트 조회관련 코드 추가함 ㅁㅁ
         HttpSession session = request.getSession(true);//현재 세션 로드
 
         List<ReservationVO> list = ReservationService.getReservationListAll();
-        Collections.reverse(list);
+        Collections.sort(list, new ReservationComparator());
 
         model.addAttribute("list", list);
         //window.open("/admin/showUserReservation", "a","width=400, height=300, left=100, top=50");
