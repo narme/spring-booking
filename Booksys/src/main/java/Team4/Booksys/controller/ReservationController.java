@@ -92,9 +92,8 @@ public class ReservationController {
 	*/
 	
 	@RequestMapping(value = "/callModifyReserve")
-	public String modifyReserve(HttpSession session,Model model,ServletRequest req) { //아직 작업중인 코드 leewk
-		
-		/*수정부분- juhee*/
+	public String modifyReserve(HttpSession session,Model model,ServletRequest req) {
+
 		if(req.getParameter("oid").contentEquals("")) {
 			return "redirect:/showUserReservation";
 		}
@@ -138,18 +137,6 @@ public class ReservationController {
 	@ResponseBody
 	@RequestMapping(value = "/modifyReservation.do")
 	public String showTableView(HttpServletRequest request, Model model, HttpSession session) {
-		//클라에서 주는 값들
-		//reseravationoid
-		//eventoid <-없으면 -1
-		//date
-		//time
-		//num_people
-		//
-		//이벤트있으면
-		//type
-		//song
-		//memo
-		//
 		if(session.getAttribute("id") == null)return "/index";
 
 		int reserv_oid = Integer.parseInt(request.getParameter("reservationoid"));

@@ -26,7 +26,7 @@ public interface ReservationRepository extends JpaRepository<ReservationVO, Long
 	
 	@Query("SELECT a FROM RESERVATION a WHERE a.uid = ?1 AND a.isdeleted = 0" )
 	public List<ReservationVO> findAllByuidForUser(int tid);
-	
+
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE RESERVATION SET rank = rank - 1 WHERE oid = ?1" )
@@ -65,4 +65,5 @@ public interface ReservationRepository extends JpaRepository<ReservationVO, Long
 
 	@Query("SELECT COUNT(*) FROM RESERVATION WHERE uid=?1")
 	public int countReservationByUser(int oid);
+
 }

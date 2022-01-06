@@ -3,6 +3,7 @@ package Team4.Booksys.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import Team4.Booksys.VO.ReservationVO;
@@ -23,7 +24,11 @@ public class ReservationService {
     public int findByTableId(int uid){
         return Repository.numberOfReservationByTableId(uid);
     }
-	public List<ReservationVO> getReservationListAll(){return Repository.findAll();}
+	public List<ReservationVO> getReservationListAll(){
+		//Sort sort = Sort.by(Sort.Direction.DESC, "oid");
+    	return Repository.findAll();
+    }
+
     public int countReservationByMonth(String t1, String t2){
         return Repository.numberOfReservationByTime(t1, t2);
     }
