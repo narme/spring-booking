@@ -27,12 +27,6 @@ ORM(Object Relational Mapping)
     - JPA/Hibernate
     - Sequelize
     - Django ORM
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           - Sequelize
-    - Django ORM                    
-      - 
-      
-  
-  
   
 - OOP
 
