@@ -8,6 +8,7 @@
   - 객체-관계 매핑, OOP(Object Oriented Programming)에서 쓰이는 객체라는 개념을 구현한 클래스와 RDB(Relational DataBase)에서 
     쓰이는 데이터인 테이블 자동으로 매핑(연결)하는 것을 의미
   - 클래스와 테이블의 불일치를 ORM을 통해 SQL문을 자동으로 생성하여 불일치 해결
+    - 장점
   
   
   
